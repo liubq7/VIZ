@@ -1,10 +1,17 @@
-import logo from './logo.svg';
+import React, {Fragment} from "react";
 import './App.css';
 import TXList from './TXList'
+import Map from './Map'
+
+
 
 function App() {
+
   return (
-    <TXList />
+    <Fragment>
+      <TXList />
+      <Map />
+    </Fragment>
   );
 }
 

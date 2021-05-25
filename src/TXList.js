@@ -24,6 +24,7 @@ const TXList = () => {
       );
     };
     ws.onmessage = function (data, flags) {
+      console.log(data);
       if (JSON.parse(data.data).params) {
         const txHash = JSON.parse(JSON.parse(data.data).params.result).transaction.hash;
         console.log(txHash);
