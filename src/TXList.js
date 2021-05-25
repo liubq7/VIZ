@@ -14,7 +14,10 @@ const TXList = () => {
     };
     ws.onmessage = function (data, flags) {
       console.log(data);
-      setTx(data.data.toString());
+      if (JSON.parse(data.data).params) {
+        console.log(JSON.parse(data.data).params);
+        setTx(JSON.parse(JSON.parse(data.data).params.result).transaction.hash);
+      }
     };
     ws.onerror = function (derp) {
       console.log("ERROR:" + derp);
@@ -31,10 +34,6 @@ const TXList = () => {
       ws.close();
     };
   }, []);
-
-  // const showResult = () => {
-  //   <p>{JSON.parse(tx.params.result).transaction.hash}</p>
-  // };
 
   return <p>TX HERE: {tx}</p>;
 };
