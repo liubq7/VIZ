@@ -9,9 +9,15 @@ function App() {
 
   return (
     <Fragment>
-      <TXList />
-      <Map />
+      <div id="tx-list">
+        <TXList />
+      </div>
+      <div id="map">
+        <Map />
+      </div>
     </Fragment>
+
+    
   );
 }
 

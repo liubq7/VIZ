@@ -8,11 +8,11 @@ import { useD3 } from "./useD3";
 const Map = () => {
   const ref = useD3(
     (svg) => {
-      const height = 500;
-      const width = 850;
+      const height = 700;
+      const width = 1000;
 
       const projection = geoRobinson()
-        .scale(130)
+        .scale(175)
         .translate([width / 2, height / 2]);
       const path = geoPath().projection(projection).pointRadius(1);
 
@@ -38,8 +38,8 @@ const Map = () => {
     <svg
       ref={ref}
       style={{
-        height: 500,
-        width: 850,
+        height: 700,
+        width: 1000,
         marginRight: "0px",
         marginLeft: "0px",
       }}

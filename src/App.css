@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+#tx-list {
+  width: 25vw;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#map {
+  display: inline-block;
+  vertical-align: top;
+}
+
+li {
+  white-space:normal;
+  word-break : break-all;
+  word-wrap: break-word;
+}
