@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 
+function TXs(props) {
+  const txs = props.txs;
+  console.log(txs);
+  const listItems = txs.map((tx) =>
+    <li key={tx}>{tx}</li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
 const TXList = () => {
-  const [tx, setTx] = useState();
+  const [tx, setTx] = useState([]);
 
   const ws = new WebSocket("ws://localhost:18115");
 
@@ -13,10 +24,10 @@ const TXList = () => {
       );
     };
     ws.onmessage = function (data, flags) {
-      console.log(data);
       if (JSON.parse(data.data).params) {
-        console.log(JSON.parse(data.data).params);
-        setTx(JSON.parse(JSON.parse(data.data).params.result).transaction.hash);
+        const txHash = JSON.parse(JSON.parse(data.data).params.result).transaction.hash;
+        console.log(txHash);
+        setTx(tx => [txHash, ...tx].slice(0, 10));
       }
     };
     ws.onerror = function (derp) {
@@ -35,7 +46,7 @@ const TXList = () => {
     };
   }, []);
 
-  return <p>TX HERE: {tx}</p>;
+  return <TXs txs={tx} />;
 };
 
 export default TXList;
