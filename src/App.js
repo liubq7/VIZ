@@ -1,21 +1,22 @@
 import React, {Fragment} from "react";
 import './App.css';
-import TXList from './TXList'
-import Map from './Map'
+import TX from './TX'
+
 
 
 
 function App() {
 
   return (
-    <Fragment>
-      <div id="tx-list">
-        <TXList />
-      </div>
-      <div id="map">
-        <Map />
-      </div>
-    </Fragment>
+    <TX />
+    // <Fragment>
+    //   <div id="tx-list">
+    //     <TXList />
+    //   </div>
+    //   <div id="map">
+    //     <Map />
+    //   </div>
+    // </Fragment>
 
     
   );

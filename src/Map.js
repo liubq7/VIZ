@@ -5,7 +5,8 @@ import { geoPath } from "d3-geo";
 import { geoRobinson } from "d3-geo-projection";
 import { useD3 } from "./useD3";
 
-const Map = () => {
+const Map = (props) => {
+  const txNum = props.txs.length;
   const ref = useD3(
     (svg) => {
       const height = 700;
@@ -30,8 +31,22 @@ const Map = () => {
           .append("path")
           .attr("d", path);
       });
+
+      const coordinates = projection([119, 25.44]);
+
+      svg.append('g')
+        .attr('class', 'node')
+        // .selectAll('path')
+        // .data(node)
+        // .enter()
+        .append("circle")
+        .attr("cx", coordinates[0])
+        .attr("cy", coordinates[1])
+        .attr("r", 5)
+        .style("fill", "blue")
+        .style("opacity", txNum/10);
     },
-    []
+    [txNum]
   );
 
   return (
