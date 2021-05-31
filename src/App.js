@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 import './App.css';
-import TX from './TX'
+import TX from './components/TX'
 
 
 

@@ -3,9 +3,9 @@ import * as d3 from "d3";
 import * as topojson from "topojson";
 import { geoPath } from "d3-geo";
 import { geoRobinson } from "d3-geo-projection";
-import { useD3 } from "./useD3";
+import { useD3 } from "../hooks/useD3";
 
-const Map = (props) => {
+const WorldMap = (props) => {
   const txNum = props.txs.length;
   const ref = useD3(
     (svg) => {
@@ -64,4 +64,4 @@ const Map = (props) => {
   );
 };
 
-export default Map;
+export default WorldMap;
