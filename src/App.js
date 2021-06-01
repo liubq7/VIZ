@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 import "./App.css";
 import TX from "./components/TX";
-import MapTest from "./components/MapTest";
+import WorldMap from "./components/WorldMap";
 
 function App() {
   return (
     <Fragment>
-      <div id="maptest">
-        <MapTest />
+      <div id="world-map">
+        <WorldMap />
       </div>
       <div id="tx">
         <TX />

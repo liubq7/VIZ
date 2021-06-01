@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import WorldMap from './WorldMap'
+import Nodes from './Nodes'
 
 function TXList(props) {
   const txs = props.txs; 
@@ -78,8 +78,8 @@ const TX = () => {
       <div id="tx-list">
         <TXList txs={txs} />
       </div>
-      <div id="map">
-        <WorldMap nodeTxs={nodeTxs} />
+      <div id="nodes">
+        <Nodes nodeTxs={nodeTxs} />
       </div>
     </Fragment>
   ) 

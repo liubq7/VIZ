@@ -4,17 +4,14 @@
   vertical-align: top;
 }
 
-#map {
+#nodes {
   display: inline-block;
   vertical-align: top;
+  position: absolute;
 }
 
 li {
   white-space:normal;
   word-break : break-all;
   word-wrap: break-word;
-}
-
-#maptest #map {
-  position: absolute;
 }

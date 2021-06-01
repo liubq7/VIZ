@@ -43,7 +43,7 @@
   vertical-align: top;
 }
 
-#map {
+#nodes {
   display: inline-block;
   vertical-align: top;
 }
@@ -54,12 +54,11 @@ li {
   word-wrap: break-word;
 }
 
-#maptest {
+#world-map {
   margin-left: 25vw;
   position: absolute;
 }
 
 #tx {
   position: absolute;
-
 }
