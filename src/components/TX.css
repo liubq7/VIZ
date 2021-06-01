@@ -14,3 +14,7 @@ li {
   word-break : break-all;
   word-wrap: break-word;
 }
+
+#maptest #map {
+  position: absolute;
+}

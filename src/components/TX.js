@@ -34,16 +34,6 @@ const TX = () => {
       );
     };
     ws.onmessage = function (evt) {
-      // console.log(evt.data);
-      // console.log(Date.now());
-      // if (JSON.parse(evt.data).params) {
-      //   const txHash = JSON.parse(JSON.parse(evt.data).params.result)
-      //     .transaction.hash;
-      //   console.log(txHash);
-      //   const time = Date.now();
-      //   const txInfo = { time: time, hash: txHash };
-      //   setTxs((txs) => [txInfo, ...txs].slice(0, 10));
-      // }
 
       const nodeTx = JSON.parse(evt.data);
       const currTime = Date.now();

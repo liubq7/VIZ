@@ -34,32 +34,22 @@ const WorldMap = (props) => {
         .translate([width / 2, height / 2]);
       const path = geoPath().projection(projection).pointRadius(1);
 
-      d3.json("./countries.topo.json").then(function (world) {
-        const mapData = topojson.feature(
-          world,
-          world.objects.countries
-        ).features;
-        svg
-          .select(".world-map")
-          .attr("class", "countries")
-          .selectAll("path")
-          .data(mapData)
-          .enter()
-          .append("path")
-          .attr("d", path);
-      });     
+      // d3.json("./countries.topo.json").then(function (world) {
+      //   const mapData = topojson.feature(
+      //     world,
+      //     world.objects.countries
+      //   ).features;
+      //   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      //   svg
+      //     .select(".world-map")
+      //     .attr("class", "countries")
+      //     .selectAll("path")
+      //     .data(mapData)
+      //     .enter()
+      //     .append("path")
+      //     .attr("d", path);
+      // });     
 
-      // svg
-      //   .append("g")
-      //   .attr("class", "node")
-      //   // .data(node)
-      //   // .enter()
-      //   .append("circle")
-      //   .attr("cx", coordinates[0])
-      //   .attr("cy", coordinates[1])
-      //   .attr("r", 5)
-      //   .style("fill", "blue")
-      //   .style("opacity", txNum / 10);
 
       d3.csv("./nodes.csv").then(function (data) {
         const nodeInfo = data;

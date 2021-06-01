@@ -53,3 +53,13 @@ li {
   word-break : break-all;
   word-wrap: break-word;
 }
+
+#maptest {
+  margin-left: 25vw;
+  position: absolute;
+}
+
+#tx {
+  position: absolute;
+
+}
