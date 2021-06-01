@@ -34,7 +34,7 @@ const TX = () => {
       );
     };
     ws.onmessage = function (evt) {
-      console.log(evt.data);
+      // console.log(evt.data);
       // console.log(Date.now());
       // if (JSON.parse(evt.data).params) {
       //   const txHash = JSON.parse(JSON.parse(evt.data).params.result)
@@ -49,7 +49,7 @@ const TX = () => {
       const currTime = Date.now();
       setNodeTxs((nodeTxs) => {
         const temp = [...nodeTxs, nodeTx];
-        return temp.filter(tx => currTime - tx.timestamp < 1000);
+        return temp.filter(tx => currTime - tx.timestamp < 10000);
       })
 
       const txHash = JSON.parse(evt.data).hash;
