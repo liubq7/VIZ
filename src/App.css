@@ -52,6 +52,7 @@ li {
   white-space:normal;
   word-break : break-all;
   word-wrap: break-word;
+  color: #9b9b9b;
 }
 
 #world-map {

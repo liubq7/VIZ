@@ -22,7 +22,9 @@ const WorldMap = () => {
       .data(mapData)
       .enter()
       .append("path")
-      .attr("d", path);
+      .attr("d", path)
+      .style("fill", "#101010")  //"#101010"
+      .style("stroke", "#2c2c2c");  // "#2c2c2c"
   });
 
   return (
