@@ -6,7 +6,8 @@ import { geoRobinson } from "d3-geo-projection";
 import { useD3 } from "../hooks/useD3";
 
 const WorldMap = (props) => {
-  const txNum = props.txs.length;
+  const txNum = props.nodeTxs.length;
+
   const ref = useD3(
     (svg) => {
       const height = 700;
@@ -36,7 +37,6 @@ const WorldMap = (props) => {
 
       svg.append('g')
         .attr('class', 'node')
-        // .selectAll('path')
         // .data(node)
         // .enter()
         .append("circle")

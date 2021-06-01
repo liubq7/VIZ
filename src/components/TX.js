@@ -1,17 +1,8 @@
-import { map } from "d3-array";
 import React, { useState, useEffect, Fragment } from "react";
 import WorldMap from './WorldMap'
 
 function TXList(props) {
   const txs = props.txs; 
-  // console.log(txs);
-
-  // const listItems = txs.map((tx) => (
-  //   <li key={tx.time * tx.nodeId}>
-  //     {new Date(tx.time).toString()}:<br />
-  //     {tx.hash}
-  //   </li>
-  // ));
   let listItems = [];
   for (let txKey of txs.keys()) {
     const listItem = (
@@ -31,6 +22,7 @@ function TXList(props) {
 
 const TX = () => {
   const [txs, setTxs] = useState(new Map());
+  const [nodeTxs, setNodeTxs] = useState([]);
 
   const ws = new WebSocket("ws://localhost:8887");  //18115, 8887
 
@@ -42,7 +34,7 @@ const TX = () => {
       );
     };
     ws.onmessage = function (evt) {
-      // console.log(evt);
+      console.log(evt.data);
       // console.log(Date.now());
       // if (JSON.parse(evt.data).params) {
       //   const txHash = JSON.parse(JSON.parse(evt.data).params.result)
@@ -52,6 +44,13 @@ const TX = () => {
       //   const txInfo = { time: time, hash: txHash };
       //   setTxs((txs) => [txInfo, ...txs].slice(0, 10));
       // }
+
+      const nodeTx = JSON.parse(evt.data);
+      const currTime = Date.now();
+      setNodeTxs((nodeTxs) => {
+        const temp = [...nodeTxs, nodeTx];
+        return temp.filter(tx => currTime - tx.timestamp < 1000);
+      })
 
       const txHash = JSON.parse(evt.data).hash;
       const timestamp = Number(JSON.parse(evt.data).timestamp);
@@ -90,7 +89,7 @@ const TX = () => {
         <TXList txs={txs} />
       </div>
       <div id="map">
-        <WorldMap txs={txs} />
+        <WorldMap nodeTxs={nodeTxs} />
       </div>
     </Fragment>
   ) 
