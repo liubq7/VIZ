@@ -1,7 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
 import { geoRobinson } from "d3-geo-projection";
-import { useD3 } from "../hooks/useD3";
 
 const Nodes = (props) => {
   const nodeTxs = props.nodeTxs;
@@ -19,61 +18,59 @@ const Nodes = (props) => {
   }
   const txNum = s.size;
 
-  const ref = useD3(
-    (svg) => {
-      const height = 700;
-      const width = 1100;
+  const height = 700;
+  const width = 1100;
 
-      const projection = geoRobinson()
-        .scale(185)
-        .translate([width / 2, height / 2]);  
+  const projection = geoRobinson()
+    .scale(185)
+    .translate([width / 2, height / 2]);
 
-      const rangeColor = d3.scaleLinear().domain([0,10]).range(['#939998', '#1EE8C6']);
+  const rangeColor = d3
+    .scaleLinear()
+    .domain([0, 10])
+    .range(["#939998", "#1EE8C6"]);
 
-      d3.csv("./nodes.csv").then(function (data) {
-        const nodeInfo = data;
+  d3.csv("./nodes.csv").then(function (data) {
+    const nodeInfo = data;
 
-        d3.selectAll(".node").remove();
+    d3.selectAll(".node").remove();
 
-        svg
-          .append("g")
-          .attr("class", "node")
-          .selectAll("circle")
-          .data(nodeInfo)
-          .enter()
-          .append("circle")
-          .attr("cx", function (d) {
-            return projection([d.long, d.lat])[0];
-          })
-          .attr("cy", function (d) {
-            return projection([d.long, d.lat])[1];
-          })
-          .attr("r", function (d) {
-            // return 5 * m.get(d.id) / txNum;
-            return 5;
-          })
-          // .style("fill", function (d) {
-          //   return rangeColor(Math.trunc(m.get(d.id) / txNum * 10));
-          // })
-          .style("fill", "#18efb1")
-          .style("opacity", function (d) {
-            return m.get(d.id) / txNum;
-          });
+    d3.select(".nodes")
+      .append("g")
+      .attr("class", "node")
+      .selectAll("circle")
+      .data(nodeInfo)
+      .enter()
+      .append("circle")
+      .attr("cx", function (d) {
+        return projection([d.long, d.lat])[0];
+      })
+      .attr("cy", function (d) {
+        return projection([d.long, d.lat])[1];
+      })
+      .attr("r", function (d) {
+        return (5 * m.get(d.id)) / txNum;
+        // return 5;
+      })
+      // .style("fill", function (d) {
+      //   return rangeColor(Math.trunc(m.get(d.id) / txNum * 10));
+      // })
+      .style("fill", "#18efb1")
+      .style("opacity", function (d) {
+        return m.get(d.id) / txNum;
       });
-    },
-    [nodeTxs]
-  );
+  });
 
   return (
     <svg
-      ref={ref}
       style={{
-        height: 700,
-        width: 1100,
+        height: height,
+        width: width,
         marginRight: "0px",
         marginLeft: "0px",
       }}
     >
+      <g className="nodes" />
     </svg>
   );
 };

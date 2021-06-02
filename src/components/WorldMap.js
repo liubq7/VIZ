@@ -30,8 +30,8 @@ const WorldMap = () => {
   return (
     <svg
       style={{
-        height: 700,
-        width: 1100,
+        height: height,
+        width: width,
         marginRight: "0px",
         marginLeft: "0px",
       }}
