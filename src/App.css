@@ -53,6 +53,7 @@ li {
   word-break : break-all;
   word-wrap: break-word;
   color: #9b9b9b;
+  font-size: 12px;
 }
 
 #world-map {

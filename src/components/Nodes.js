@@ -25,22 +25,25 @@ const Nodes = (props) => {
     .scale(185)
     .translate([width / 2, height / 2]);
 
-  const rangeColor = d3
-    .scaleLinear()
-    .domain([0, 10])
-    .range(["#939998", "#1EE8C6"]);
+  // const rangeColor = d3
+  //   .scaleLinear()
+  //   .domain([0, 10])
+  //   .range(["#939998", "#1EE8C6"]);
 
   d3.csv("./nodes.csv").then(function (data) {
     const nodeInfo = data;
 
     d3.selectAll(".node").remove();
 
-    d3.select(".nodes")
+    const nodeSvg = d3
+      .select(".nodes")
       .append("g")
       .attr("class", "node")
       .selectAll("circle")
       .data(nodeInfo)
-      .enter()
+      .enter();
+
+    nodeSvg
       .append("circle")
       .attr("cx", function (d) {
         return projection([d.long, d.lat])[0];
@@ -49,15 +52,46 @@ const Nodes = (props) => {
         return projection([d.long, d.lat])[1];
       })
       .attr("r", function (d) {
-        return (5 * m.get(d.id)) / txNum;
-        // return 5;
+        return (4 * m.get(d.id)) / txNum;
       })
       // .style("fill", function (d) {
       //   return rangeColor(Math.trunc(m.get(d.id) / txNum * 10));
       // })
       .style("fill", "#18efb1")
       .style("opacity", function (d) {
-        return m.get(d.id) / txNum;
+        return (m.get(d.id) / txNum) * 0.8;
+      });
+
+    nodeSvg
+      .append("circle")
+      .attr("cx", function (d) {
+        return projection([d.long, d.lat])[0];
+      })
+      .attr("cy", function (d) {
+        return projection([d.long, d.lat])[1];
+      })
+      .attr("r", function (d) {
+        return (6 * m.get(d.id)) / txNum;
+      })
+      .style("fill", "#18efb1")
+      .style("opacity", function (d) {
+        return (m.get(d.id) / txNum) * 0.1;
+      });
+
+    nodeSvg
+      .append("circle")
+      .attr("cx", function (d) {
+        return projection([d.long, d.lat])[0];
+      })
+      .attr("cy", function (d) {
+        return projection([d.long, d.lat])[1];
+      })
+      .attr("r", function (d) {
+        return (9 * m.get(d.id)) / txNum;
+      })
+      .style("fill", "#18efb1")
+      .style("opacity", function (d) {
+        return (m.get(d.id) / txNum) * 0.03;
       });
   });
 
