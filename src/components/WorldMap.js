@@ -6,10 +6,10 @@ import { geoRobinson } from "d3-geo-projection";
 
 const WorldMap = () => {
   const height = 700;
-  const width = 1000;
+  const width = 1100;
 
   const projection = geoRobinson()
-    .scale(175)
+    .scale(185)
     .translate([width / 2, height / 2]);
   const path = geoPath().projection(projection).pointRadius(1);
 
@@ -23,15 +23,15 @@ const WorldMap = () => {
       .enter()
       .append("path")
       .attr("d", path)
-      .style("fill", "#101010")  //"#101010"
-      .style("stroke", "#2c2c2c");  // "#2c2c2c"
+      .style("fill", "#101010")
+      .style("stroke", "#2c2c2c");  
   });
 
   return (
     <svg
       style={{
         height: 700,
-        width: 1000,
+        width: 1100,
         marginRight: "0px",
         marginLeft: "0px",
       }}

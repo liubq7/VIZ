@@ -22,11 +22,13 @@ const Nodes = (props) => {
   const ref = useD3(
     (svg) => {
       const height = 700;
-      const width = 1000;
+      const width = 1100;
 
       const projection = geoRobinson()
-        .scale(175)
+        .scale(185)
         .translate([width / 2, height / 2]);  
+
+      const rangeColor = d3.scaleLinear().domain([0,10]).range(['#939998', '#1EE8C6']);
 
       d3.csv("./nodes.csv").then(function (data) {
         const nodeInfo = data;
@@ -46,8 +48,14 @@ const Nodes = (props) => {
           .attr("cy", function (d) {
             return projection([d.long, d.lat])[1];
           })
-          .attr("r", 5)
-          .style("fill", "blue")
+          .attr("r", function (d) {
+            // return 5 * m.get(d.id) / txNum;
+            return 5;
+          })
+          // .style("fill", function (d) {
+          //   return rangeColor(Math.trunc(m.get(d.id) / txNum * 10));
+          // })
+          .style("fill", "#18efb1")
           .style("opacity", function (d) {
             return m.get(d.id) / txNum;
           });
@@ -61,7 +69,7 @@ const Nodes = (props) => {
       ref={ref}
       style={{
         height: 700,
-        width: 1000,
+        width: 1100,
         marginRight: "0px",
         marginLeft: "0px",
       }}
