@@ -2,7 +2,7 @@ import React from "react";
 import * as d3 from "d3";
 import { geoRobinson } from "d3-geo-projection";
 
-const Nodes = (props) => {
+const MapNodes = (props) => {
   const nodeTxs = props.nodeTxs;
 
   let m = new Map();
@@ -109,4 +109,4 @@ const Nodes = (props) => {
   );
 };
 
-export default Nodes;
+export default MapNodes;

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "./App.css";
-import TX from "./components/TX";
+import TXs from "./components/TXs";
 import WorldMap from "./components/WorldMap";
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
       <div id="world-map">
         <WorldMap />
       </div>
-      <div id="tx">
-        <TX />
+      <div id="txs">
+        <TXs />
       </div>
     </Fragment>
   );

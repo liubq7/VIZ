@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import Nodes from './Nodes'
+import MapNodes from './MapNodes'
 
 function TXList(props) {
   const txs = props.txs; 
@@ -20,7 +20,7 @@ function TXList(props) {
 }
 
 
-const TX = () => {
+const TXs = () => {
   const [txs, setTxs] = useState(new Map());
   const [nodeTxs, setNodeTxs] = useState([]);
 
@@ -79,10 +79,10 @@ const TX = () => {
         <TXList txs={txs} />
       </div>
       <div id="nodes">
-        <Nodes nodeTxs={nodeTxs} />
+        <MapNodes nodeTxs={nodeTxs} />
       </div>
     </Fragment>
   ) 
 };
 
-export default TX;
+export default TXs;
