@@ -37,25 +37,6 @@
   }
 }
 
-#tx-list {
-  width: 25vw;
-  display: inline-block;
-  vertical-align: top;
-}
-
-#nodes {
-  display: inline-block;
-  vertical-align: top;
-}
-
-li {
-  white-space:normal;
-  word-break : break-all;
-  word-wrap: break-word;
-  color: #9b9b9b;
-  font-size: 12px;
-}
-
 #world-map {
   margin-left: 25vw;
   position: absolute;

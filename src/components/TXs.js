@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
-import MapNodes from './MapNodes'
+import MapNodes from './MapNodes';
+import "./TXs.css";
 
 function TXList(props) {
   const txs = props.txs; 
