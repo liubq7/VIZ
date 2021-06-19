@@ -10,9 +10,9 @@ function App() {
       <div id="world-map">
         <WorldMap />
       </div>
-      <div id="txs">
+      {/* <div id="txs">
         <TXs />
-      </div>
+      </div> */}
       <div>
         <TXViz />
       </div>
