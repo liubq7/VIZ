@@ -2,6 +2,10 @@ import { Fragment } from "react";
 import * as d3 from "d3";
 import "./TXViz.css";
 
+function seedRandom(seed) {
+  return ((seed * 9301 + 49297) % 233280) / 233280.0;
+}
+
 const TXViz = () => {
   const width = 800;
   const height = 500;
@@ -49,11 +53,14 @@ const TXViz = () => {
 
   initializeNodes();
   center(width / 2, height / 2);
+  console.log(nodes);
 
-  d3.select("svg")
+  // disappear after refresh???
+  d3.select(".nodes-circle")
     .selectAll("circle")
     .data(nodes)
-    .join("circle")
+    .enter()
+    .append("circle")
     .attr("r", function (d) {
       return d.radius;
     })
@@ -68,21 +75,19 @@ const TXViz = () => {
     })
     .style("fill", "white");
 
-  const svg = d3
-    .select("#timeline")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", 70);
-
-  const playButton = d3.select("#play-button");
 
   return (
-    <Fragment>
-      <svg style={{ height: height, width: width }}></svg>
-      <div id="timeline">
-        <button id="play-button">play</button>
-      </div>
-    </Fragment>
+    // <Fragment>
+      <svg style={{ height: height, width: width }}>
+        <g className="nodes-circle" />
+      </svg>
+    //   {/* <div>
+    //     <svg style={{ height: 70, width: width }}>
+    //       <g className="slider" />
+    //     </svg>
+    //     <button id="play-button">play</button>
+    //   </div>
+    // </Fragment> */}
   );
 };
 

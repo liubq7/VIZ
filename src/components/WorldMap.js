@@ -17,7 +17,7 @@ const WorldMap = () => {
     const mapData = topojson.feature(world, world.objects.countries).features;
     d3
       .select(".world-map")
-      .attr("class", "countries")
+      // .attr("class", "countries")
       .selectAll("path")
       .data(mapData)
       .enter()
