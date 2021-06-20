@@ -1,6 +1,7 @@
 import React from "react";
 import * as d3 from "d3";
 import { geoRobinson } from "d3-geo-projection";
+import data from "../data/nodes.csv";
 
 const MapNodes = (props) => {
   const nodeTxs = props.nodeTxs;
@@ -30,8 +31,9 @@ const MapNodes = (props) => {
   //   .domain([0, 10])
   //   .range(["#939998", "#1EE8C6"]);
 
-  d3.csv("./nodes.csv").then(function (data) {
+  d3.csv(data).then(function (data) {
     const nodeInfo = data;
+    // console.log(nodeInfo);
 
     d3.selectAll(".node").remove();
 

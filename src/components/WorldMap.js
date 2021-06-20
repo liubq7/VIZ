@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import * as topojson from "topojson";
 import { geoPath } from "d3-geo";
 import { geoRobinson } from "d3-geo-projection";
+import countriesData from "../data/countries.topo.json";
 
 const WorldMap = () => {
+  const worldMap = useRef()
   const height = 700;
   const width = 1100;
 
@@ -13,11 +15,12 @@ const WorldMap = () => {
     .translate([width / 2, height / 2]);
   const path = geoPath().projection(projection).pointRadius(1);
 
-  d3.json("./countries.topo.json").then(function (world) {
-    const mapData = topojson.feature(world, world.objects.countries).features;
+  console.log(countriesData);
+  const mapData = topojson.feature(countriesData, countriesData.objects.countries).features;
+
+  useEffect(() => {
     d3
-      .select(".world-map")
-      // .attr("class", "countries")
+      .select(worldMap.current)
       .selectAll("path")
       .data(mapData)
       .enter()
@@ -25,7 +28,7 @@ const WorldMap = () => {
       .attr("d", path)
       .style("fill", "#101010")
       .style("stroke", "#2c2c2c");  
-  });
+  }, []);
 
   return (
     <svg
@@ -36,7 +39,7 @@ const WorldMap = () => {
         marginLeft: "0px",
       }}
     >
-      <g className="world-map" />
+      <g className="world-map" ref={worldMap} />
     </svg>
   );
 };
