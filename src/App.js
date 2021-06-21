@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
-import "./App.css";
+import "./css/App.css";
 import TXs from "./components/TXs";
-import TXViz from "./components/TXViz";
+import TXNodes from "./components/TXNodes";
 import WorldMap from "./components/WorldMap";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <TXs />
       </div> */}
       <div>
-        <TXViz />
+        <TXNodes />
       </div>
     </Fragment>
   );

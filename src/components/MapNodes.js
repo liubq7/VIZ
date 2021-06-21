@@ -64,37 +64,37 @@ const MapNodes = (props) => {
         return (m.get(d.id) / txNum) * 0.8;
       });
 
-    nodeSvg
-      .append("circle")
-      .attr("cx", function (d) {
-        return projection([d.long, d.lat])[0];
-      })
-      .attr("cy", function (d) {
-        return projection([d.long, d.lat])[1];
-      })
-      .attr("r", function (d) {
-        return (6 * m.get(d.id)) / txNum;
-      })
-      .style("fill", "#18efb1")
-      .style("opacity", function (d) {
-        return (m.get(d.id) / txNum) * 0.1;
-      });
+    // nodeSvg
+    //   .append("circle")
+    //   .attr("cx", function (d) {
+    //     return projection([d.long, d.lat])[0];
+    //   })
+    //   .attr("cy", function (d) {
+    //     return projection([d.long, d.lat])[1];
+    //   })
+    //   .attr("r", function (d) {
+    //     return (6 * m.get(d.id)) / txNum;
+    //   })
+    //   .style("fill", "#18efb1")
+    //   .style("opacity", function (d) {
+    //     return (m.get(d.id) / txNum) * 0.1;
+    //   });
 
-    nodeSvg
-      .append("circle")
-      .attr("cx", function (d) {
-        return projection([d.long, d.lat])[0];
-      })
-      .attr("cy", function (d) {
-        return projection([d.long, d.lat])[1];
-      })
-      .attr("r", function (d) {
-        return (9 * m.get(d.id)) / txNum;
-      })
-      .style("fill", "#18efb1")
-      .style("opacity", function (d) {
-        return (m.get(d.id) / txNum) * 0.03;
-      });
+    // nodeSvg
+    //   .append("circle")
+    //   .attr("cx", function (d) {
+    //     return projection([d.long, d.lat])[0];
+    //   })
+    //   .attr("cy", function (d) {
+    //     return projection([d.long, d.lat])[1];
+    //   })
+    //   .attr("r", function (d) {
+    //     return (9 * m.get(d.id)) / txNum;
+    //   })
+    //   .style("fill", "#18efb1")
+    //   .style("opacity", function (d) {
+    //     return (m.get(d.id) / txNum) * 0.03;
+    //   });
   });
 
   return (
