@@ -6,7 +6,6 @@ function seedRandom(seed) {
 
 export const filterData = (time) => {
   const dataset = txTestData.tx;
-  // console.log(dataset);
   const newData = dataset.filter(function (d) {
     return d.timestamp <= time;
   });

@@ -8,9 +8,9 @@ import TXViz from "./components/TXViz";
 function App() {
   return (
     <Fragment>
-      <div id="world-map">
+      {/* <div id="world-map">
         <WorldMap />
-      </div>
+      </div> */}
       {/* <div id="txs">
         <TXs />
       </div> */}

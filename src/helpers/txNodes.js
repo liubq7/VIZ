@@ -70,6 +70,7 @@ export const drawInitNodes = (svg, nodes) => {
 };
 
 export const drawLinkedNodes = (svg, nodes, nodesData, linksData) => {
+  console.log(nodesData);
   const p = svg.selectAll(".recieved").data(nodesData);
   p.enter().append("circle").attr("class", "recieved");
   p.attr("r", 5)
