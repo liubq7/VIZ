@@ -2,12 +2,12 @@
   -webkit-appearance: none;
   width: 50%;
   height: 5px;
-  border-radius: 3px;  
+  border-radius: 3px;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
 }
 
 /* chrome */
@@ -22,8 +22,8 @@
   appearance: none;
   width: 20px;
   height: 20px;
-  border-radius: 50%; 
-  background: #04AA6D;
+  border-radius: 50%;
+  background: #04aa6d;
   cursor: pointer;
 }
 
@@ -32,7 +32,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #04AA6D;
+  background: #04aa6d;
   cursor: pointer;
 }
 /* .timeline-slider::-moz-range-progress {
@@ -44,4 +44,23 @@
 
 #timeline {
   margin-left: 20px;
+}
+
+#play-button {
+  top: 140px;
+  left: 50px;
+  margin-left: 10px;
+  background: #f08080;
+  padding-right: 26px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  padding: 0 12px;
+  width: 60px;
+  cursor: pointer;
+  height: 30px;
+}
+
+#play-button:hover {
+  background-color: #696969;
 }

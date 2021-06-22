@@ -5,7 +5,7 @@ import {
   drawInitNodes,
   drawLinkedNodes,
 } from "../helpers/txNodes";
-import { filterData } from "../helpers/filterData";
+import { filterData } from "../helpers/timeline";
 
 const TXNodes = (props) => {
   const vizContainer = useRef();

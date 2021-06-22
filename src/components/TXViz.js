@@ -1,9 +1,11 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 import TXNodes from "./TXNodes";
 import "../css/TXViz.css"
 
 const TXViz = () => {
-  const [rangeval, setRangeval] = useState(null);
+  const startTime = 1622463474248;
+  const endTime = 1622463476577;
+  const [rangeval, setRangeval] = useState(startTime);
 
   return (
     <Fragment>
@@ -15,10 +17,12 @@ const TXViz = () => {
         <input
           type="range"
           className="timeline-slider"
-          min="1622463474248"
-          max="1622463476577"
-          onChange={(event) => setRangeval(event.target.value)}
+          min={startTime}
+          max={endTime}
+          value={rangeval}
+          onChange={(event) => setRangeval(Number(event.target.value))}
         />
+        <button id="play-button" onClick={() => setRangeval(rangeval + 1)}>play</button>
       </div>
     </Fragment>
   );
