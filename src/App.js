@@ -3,6 +3,7 @@ import "./css/App.css";
 import TXs from "./components/TXs";
 import TXNodes from "./components/TXNodes";
 import WorldMap from "./components/WorldMap";
+import TXViz from "./components/TXViz";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <TXs />
       </div> */}
       <div>
-        <TXNodes />
+        <TXViz />
       </div>
     </Fragment>
   );
