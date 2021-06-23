@@ -3,10 +3,13 @@ import seedrandom from "seedrandom";
 
 export const generateLinks = () => {
   const dataset = txTestData.tx;
-  const rng = seedrandom('TXTXTXTXTXTXTXT0');
+  const rng = seedrandom('TXTXTXTXTXTXTXT0'); // using tx's hash as seed
   let links = [];
-  for (let i = 0; i < dataset.length; i++) {
-    const prevNode = Math.floor(rng() * i);
+  for (let i = 1; i < dataset.length; i++) {
+    let prevNode = i;
+    while (dataset[prevNode].timestamp == dataset[i].timestamp) {
+      prevNode = Math.floor(Math.pow(rng(), 0.5) * i);
+    }
     links.push({startPoint: prevNode, endPoint: i, timestamp: dataset[i].timestamp});
   }
   return links;

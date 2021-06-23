@@ -9,7 +9,7 @@ const TXViz = () => {
   const [play, setPlay] = useState(false);
   const [btnText, setBtnText] = useState("play");
 
-  console.log(rangeval);
+  // console.log(rangeval);
 
   useEffect(() => {
     if (rangeval == endTime) {

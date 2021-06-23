@@ -13,14 +13,16 @@ const TXNodes = (props) => {
   const height = 500;
   const nodes = initializeNodes(width / 2, height / 2);
   const links = generateLinks();
-  let nodesData = filterNodeData(props.time);
-  let linksData = filterLinkData(props.time, links);
+  let nodeData = filterNodeData(props.time);
+  let linkData = filterLinkData(props.time, links);
+
+  // console.log(nodeData);
 
   useEffect(() => {
     d3.select(vizContainer.current)
       .call((svg) => drawInitNodes(svg, nodes))
-      .call((svg) => drawLinkedNodes(svg, nodes, nodesData, linksData));
-  }, [nodes, nodesData, linksData]);
+      .call((svg) => drawLinkedNodes(svg, nodes, nodeData, linkData));
+  }, [nodeData, linkData]);
 
   return <svg ref={vizContainer} style={{ height: height, width: width }} />;
 };
