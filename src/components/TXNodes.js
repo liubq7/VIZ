@@ -5,20 +5,21 @@ import {
   drawInitNodes,
   drawLinkedNodes,
 } from "../helpers/txNodes";
-import { filterData } from "../helpers/timeline";
+import { generateLinks, filterNodeData, filterLinkData } from "../helpers/processData";
 
 const TXNodes = (props) => {
   const vizContainer = useRef();
   const width = 800;
   const height = 500;
   const nodes = initializeNodes(width / 2, height / 2);
-  let nodesData = filterData(props.time)[0];
-  let linksData = filterData(props.time)[1];
+  const links = generateLinks();
+  let nodesData = filterNodeData(props.time);
+  let linksData = filterLinkData(props.time, links);
 
   useEffect(() => {
     d3.select(vizContainer.current)
       .call((svg) => drawInitNodes(svg, nodes))
-      .call((svg) => drawLinkedNodes(svg, nodes, nodesData, linksData));  // disappera after refreshing???
+      .call((svg) => drawLinkedNodes(svg, nodes, nodesData, linksData));
   }, [nodes, nodesData, linksData]);
 
   return <svg ref={vizContainer} style={{ height: height, width: width }} />;
