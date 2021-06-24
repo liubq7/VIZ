@@ -11,6 +11,7 @@ const TXNodes = (props) => {
   const vizContainer = useRef();
   const width = 800;
   const height = 500;
+  // TODO: lift state up??
   const nodes = initializeNodes(width / 2, height / 2);
   const links = generateLinks();
   let nodeData = filterNodeData(props.time);
