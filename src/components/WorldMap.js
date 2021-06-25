@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import * as topojson from "topojson";
 import { geoPath } from "d3-geo";
-import { geoRobinson } from "d3-geo-projection";
+import { geoMiller} from "d3-geo-projection";
 import countriesData from "../data/countries.topo.json";
 
 const WorldMap = () => {
@@ -10,8 +10,9 @@ const WorldMap = () => {
   const height = 700;
   const width = 1100;
 
-  const projection = geoRobinson()
-    .scale(185)
+  const projection = geoMiller()
+    .scale(150)
+    .rotate([-11, 0])
     .translate([width / 2, height / 2]);
   const path = geoPath().projection(projection).pointRadius(1);
 

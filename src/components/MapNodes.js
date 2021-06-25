@@ -1,6 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
-import { geoRobinson } from "d3-geo-projection";
+import { geoMiller } from "d3-geo-projection";
 import data from "../data/nodes.csv";
 
 const MapNodes = (props) => {
@@ -22,8 +22,10 @@ const MapNodes = (props) => {
   const height = 700;
   const width = 1100;
 
-  const projection = geoRobinson()
-    .scale(185)
+  // TODO: share projection
+  const projection = geoMiller()
+    .scale(150)
+    .rotate([-11, 0])
     .translate([width / 2, height / 2]);
 
   // const rangeColor = d3
