@@ -1,10 +1,10 @@
 import React from "react";
 import * as d3 from "d3";
-import { geoMiller } from "d3-geo-projection";
 import data from "../data/nodes.csv";
 
 const MapNodes = (props) => {
   const nodeTxs = props.nodeTxs;
+  const scaleInfo = props.scaleInfo;
 
   let m = new Map();
   let s = new Set();
@@ -19,19 +19,8 @@ const MapNodes = (props) => {
   }
   const txNum = s.size;
 
-  const height = 700;
-  const width = 1100;
-
-  // TODO: share projection
-  const projection = geoMiller()
-    .scale(150)
-    .rotate([-11, 0])
-    .translate([width / 2, height / 2]);
-
-  // const rangeColor = d3
-  //   .scaleLinear()
-  //   .domain([0, 10])
-  //   .range(["#939998", "#1EE8C6"]);
+  const projection = scaleInfo.projection;
+  const style = scaleInfo.style;
 
   d3.csv(data).then(function (data) {
     const nodeInfo = data;
@@ -58,9 +47,6 @@ const MapNodes = (props) => {
       .attr("r", function (d) {
         return (4 * m.get(d.id)) / txNum;
       })
-      // .style("fill", function (d) {
-      //   return rangeColor(Math.trunc(m.get(d.id) / txNum * 10));
-      // })
       .style("fill", "#18efb1")
       .style("opacity", function (d) {
         return (m.get(d.id) / txNum) * 0.8;
@@ -101,12 +87,7 @@ const MapNodes = (props) => {
 
   return (
     <svg
-      style={{
-        height: height,
-        width: width,
-        marginRight: "0px",
-        marginLeft: "0px",
-      }}
+      style={style}
     >
       <g className="nodes" />
     </svg>

@@ -21,7 +21,7 @@ function TXList(props) {
 }
 
 
-const TXs = () => {
+const TXs = (props) => {
   const [txs, setTxs] = useState(new Map());
   const [nodeTxs, setNodeTxs] = useState([]);
 
@@ -50,7 +50,7 @@ const TXs = () => {
       const newTx = new Map([[txHash, timestamp]]);
       setTxs((txs) => {
         if (!txs.has(txHash)) {
-          return new Map([...newTx, ...txs].slice(0, 10))
+          return new Map([...newTx, ...txs].slice(0, 6))
         } else {
           return txs;
         }
@@ -80,7 +80,7 @@ const TXs = () => {
         <TXList txs={txs} />
       </div>
       <div id="nodes">
-        <MapNodes nodeTxs={nodeTxs} />
+        <MapNodes nodeTxs={nodeTxs} scaleInfo={props} />
       </div>
     </Fragment>
   ) 
