@@ -24,7 +24,6 @@ const MapNodes = (props) => {
 
   d3.csv(data).then(function (data) {
     const nodeGeoInfo = data;
-    // console.log(nodeInfo);
 
     d3.selectAll(".node").remove();
 

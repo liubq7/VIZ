@@ -1,25 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import MapNodes from './MapNodes';
+import TXList from "./TXList";
 import "../css/TXs.css";
-
-function TXList(props) {
-  const txs = props.txList; 
-  let listItems = [];
-  for (let txKey of txs.keys()) {
-    const listItem = (
-      <li key={txKey}>
-        {new Date(txs.get(txKey)).toString()}<br />
-        {txKey}
-      </li>
-    )
-    listItems.push(listItem);
-  }
-
-  return (     
-    <ul>{listItems}</ul>
-  );
-}
-
 
 const TXs = (props) => {
   const [txList, setTxList] = useState(new Map());
@@ -48,6 +30,7 @@ const TXs = (props) => {
 
       const newTx = new Map([[txHash, timestamp]]);
       setTxList((txList) => {
+        // BUG: may show one tx repeatedly
         if (!txList.has(txHash)) {
           return new Map([...txList, ...newTx].slice(-6))
         } else {
