@@ -3,27 +3,27 @@ import * as d3 from "d3";
 import data from "../data/nodes.csv";
 
 const MapNodes = (props) => {
-  const nodeTxs = props.nodeTxs;
+  const txsInfo = props.txsInfo;
   const scaleInfo = props.scaleInfo;
+
+  const projection = scaleInfo.projection;
+  const centerStyle = scaleInfo.centerStyle;
 
   let m = new Map();
   let s = new Set();
   for (let i = 0; i < 100; i++) {
     m.set(i.toString(), 0);
   }
-  for (let i in nodeTxs) {
-    const node = nodeTxs[i].node;
-    const hash = nodeTxs[i].hash;
+  for (let i in txsInfo) {
+    const node = txsInfo[i].node;
+    const hash = txsInfo[i].hash;
     m.set(node, m.get(node) + 1);
     s.add(hash);
   }
   const txNum = s.size;
 
-  const projection = scaleInfo.projection;
-  const style = scaleInfo.style;
-
   d3.csv(data).then(function (data) {
-    const nodeInfo = data;
+    const nodeGeoInfo = data;
     // console.log(nodeInfo);
 
     d3.selectAll(".node").remove();
@@ -33,7 +33,7 @@ const MapNodes = (props) => {
       .append("g")
       .attr("class", "node")
       .selectAll("circle")
-      .data(nodeInfo)
+      .data(nodeGeoInfo)
       .enter();
 
     nodeSvg
@@ -87,7 +87,7 @@ const MapNodes = (props) => {
 
   return (
     <svg
-      style={style}
+      style={centerStyle}
     >
       <g className="nodes" />
     </svg>

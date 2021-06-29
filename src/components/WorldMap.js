@@ -7,7 +7,7 @@ import countriesData from "../data/countries.topo.json";
 const WorldMap = (props) => {
   const worldMap = useRef();
 
-  const style = props.style;
+  const centerStyle = props.centerStyle;
   const projection = props.projection;
 
   const path = geoPath().projection(projection).pointRadius(1);
@@ -32,7 +32,7 @@ const WorldMap = (props) => {
 
   return (
     <svg
-      style={style}
+      style={centerStyle}
     >
       <g className="world-map" ref={worldMap} />
     </svg>

@@ -7,7 +7,7 @@ import useWindowDimensions from "./hooks/useWindowDimensions";
 import { geoMiller } from "d3-geo-projection";
 
 function App() {
-  const [showTX, setShowTX] = useState(false);
+  const [showTXViz, setShowTXViz] = useState(false);
 
   const { innerWidth, innerHeight } = useWindowDimensions();
   let width, height;
@@ -23,11 +23,9 @@ function App() {
     .rotate([-11, 0])
     .translate([width / 2, height * 0.645]);
 
-  const style = {
+  const centerStyle = {
     height: height,
     width: width,
-    // marginRight: "0px",
-    // marginLeft: "0px",
     position: "absolute",
     left: "50%",
     top: "50%",
@@ -36,22 +34,20 @@ function App() {
 
   return (
     <Fragment>
-      <div id="world-map">
-        <WorldMap projection={projection} style={style} />
-      </div>
-      <div id="txs">
-        <TXs projection={projection} style={style} />
-      </div>
-      <div>{showTX ? <TXViz /> : null}</div>
-
-      {/* 
       <button
         onClick={() => {
-          setShowTX(!showTX);
+          setShowTXViz(!showTXViz);
         }}
       >
         show tx
-      </button> */}
+      </button>
+      <div id="world-map">
+        <WorldMap projection={projection} centerStyle={centerStyle} />
+      </div>
+      <div id="txs">
+        <TXs projection={projection} centerStyle={centerStyle} />
+      </div>
+      <div>{showTXViz ? <TXViz /> : null}</div>
     </Fragment>
   );
 }

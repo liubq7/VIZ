@@ -3,12 +3,12 @@ import MapNodes from './MapNodes';
 import "../css/TXs.css";
 
 function TXList(props) {
-  const txs = props.txs; 
+  const txs = props.txList; 
   let listItems = [];
   for (let txKey of txs.keys()) {
     const listItem = (
       <li key={txKey}>
-        {new Date(txs.get(txKey)).toString()}:<br />
+        {new Date(txs.get(txKey)).toString()}<br />
         {txKey}
       </li>
     )
@@ -22,8 +22,8 @@ function TXList(props) {
 
 
 const TXs = (props) => {
-  const [txs, setTxs] = useState(new Map());
-  const [nodeTxs, setNodeTxs] = useState([]);
+  const [txList, setTxList] = useState(new Map());
+  const [txsInfo, setTxsInfo] = useState([]);
 
   const ws = new WebSocket("ws://localhost:8887");  //18115, 8887
 
@@ -35,24 +35,23 @@ const TXs = (props) => {
       );
     };
     ws.onmessage = function (evt) {
-
-      const nodeTx = JSON.parse(evt.data);
+      // fetch data in regular time??
+      const txInfo = JSON.parse(evt.data);
       const currTime = Date.now();
-      setNodeTxs((nodeTxs) => {
-        const temp = [...nodeTxs, nodeTx];
+      setTxsInfo((txsInfo) => {
+        const temp = [...txsInfo, txInfo];
         return temp.filter(tx => currTime - tx.timestamp < 10000);
       })
 
       const txHash = JSON.parse(evt.data).hash;
       const timestamp = Number(JSON.parse(evt.data).timestamp);
-      console.log(txHash);
 
       const newTx = new Map([[txHash, timestamp]]);
-      setTxs((txs) => {
-        if (!txs.has(txHash)) {
-          return new Map([...newTx, ...txs].slice(0, 6))
+      setTxList((txList) => {
+        if (!txList.has(txHash)) {
+          return new Map([...txList, ...newTx].slice(-6))
         } else {
-          return txs;
+          return txList;
         }
       });
 
@@ -76,11 +75,11 @@ const TXs = (props) => {
 
   return (
     <Fragment>
-      <div id="tx-list">
-        <TXList txs={txs} />
+      <div>
+        <MapNodes txsInfo={txsInfo} scaleInfo={props} />
       </div>
-      <div id="nodes">
-        <MapNodes nodeTxs={nodeTxs} scaleInfo={props} />
+      <div id="tx-list">
+        <TXList txList={txList} />
       </div>
     </Fragment>
   ) 
