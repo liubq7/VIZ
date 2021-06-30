@@ -32,7 +32,7 @@ const TXs = (props) => {
       setTxList((txList) => {
         // BUG: may show one tx repeatedly
         if (!txList.has(txHash)) {
-          return new Map([...txList, ...newTx].slice(-6))
+          return new Map([...newTx, ...txList].slice(0, 6))
         } else {
           return txList;
         }

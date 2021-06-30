@@ -23,7 +23,7 @@ const TXNodes = (props) => {
     d3.select(vizContainer.current)
       .call((svg) => drawInitNodes(svg, nodes))
       .call((svg) => drawLinkedNodes(svg, nodes, nodeData, linkData));
-  }, [nodeData, linkData]);
+  }, [nodes, nodeData, linkData]);
 
   return <svg ref={vizContainer} style={{ height: height, width: width }} />;
 };

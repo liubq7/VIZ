@@ -20,7 +20,7 @@ const TXViz = () => {
       const timer = setInterval(() => setRangeval(rangeval + 1), 1);
       return () => clearInterval(timer);
     }
-  });
+  }, [rangeval, play]);
 
   return (
     <Fragment>
