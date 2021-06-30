@@ -58,12 +58,14 @@ const TXs = (props) => {
 
   return (
     <Fragment>
+    <div style={props.centerStyle}>
       <div>
         <MapNodes txsInfo={txsInfo} scaleInfo={props} />
       </div>
       <div id="tx-list">
         <TXList txList={txList} />
       </div>
+    </div>
     </Fragment>
   ) 
 };

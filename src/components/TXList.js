@@ -13,9 +13,9 @@ const TXList = (props) => {
 
     const listItem = (
       <li key={txKey}>
-        <span style={{color: "#18EFB1", fontSize: 12+'px'}}>
-        {/* {new Date(txs.get(txKey)).toString()} */}
-        {formattedTime}
+        <span style={{ color: "#18EFB1", fontSize: 12 + "px" }}>
+          {/* {new Date(txs.get(txKey)).toString()} */}
+          {formattedTime}
         </span>
         <br />
         {txKey}
@@ -24,7 +24,18 @@ const TXList = (props) => {
     listItems.push(listItem);
   }
 
-  return <ul>{listItems}</ul>;
+  return (
+    <ul>
+      <li key="test">
+        <span style={{ color: "#18EFB1", fontSize: 12 + "px" }}>
+          THISISFORTEST
+        </span>
+        <br />
+        0x365698b50ca0da75dca2c87f9e7b563811d3b5813736b8cc62cc3b106faceb
+      </li>
+      {listItems}
+    </ul>
+  );
 };
 
 export default TXList;
