@@ -5,6 +5,7 @@ import WorldMap from "./components/WorldMap";
 import TXViz from "./components/TXViz";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import { geoMiller } from "d3-geo-projection";
+import SearchBox from "./components/SearchBox";
 
 function App() {
   const [showTXViz, setShowTXViz] = useState(false);
@@ -34,13 +35,14 @@ function App() {
 
   return (
     <Fragment>
-      <button
+      {/* <button
         onClick={() => {
           setShowTXViz(!showTXViz);
         }}
       >
         show tx
-      </button>
+      </button> */}
+
       <div style={centerStyle}>
         <div id="world-map">
           <WorldMap projection={projection} centerStyle={centerStyle} />
@@ -50,6 +52,9 @@ function App() {
         </div>
         <div id="txs">
           <TXs projection={projection} centerStyle={centerStyle} />
+        </div>
+        <div id="search-box">
+          <SearchBox />
         </div>
       </div>
       <div>{showTXViz ? <TXViz /> : null}</div>
