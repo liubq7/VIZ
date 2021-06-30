@@ -1,8 +1,5 @@
 #tx-list {
   width: 24vw;
-  /* display: inline-block; */
-  /* z-index: 99; */
-  /* position: relative; */
   position: absolute;
   bottom: 0;
   left: 0;

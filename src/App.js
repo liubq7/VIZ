@@ -41,11 +41,16 @@ function App() {
       >
         show tx
       </button>
-      <div id="world-map">
-        <WorldMap projection={projection} centerStyle={centerStyle} />
-      </div>
-      <div id="txs">
-        <TXs projection={projection} centerStyle={centerStyle} />
+      <div style={centerStyle}>
+        <div id="world-map">
+          <WorldMap projection={projection} centerStyle={centerStyle} />
+        </div>
+        <div id="cryptape">
+          <h1>CRYPTAPE</h1>
+        </div>
+        <div id="txs">
+          <TXs projection={projection} centerStyle={centerStyle} />
+        </div>
       </div>
       <div>{showTXViz ? <TXViz /> : null}</div>
     </Fragment>
