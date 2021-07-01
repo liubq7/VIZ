@@ -53,6 +53,9 @@ function App() {
         <div id="txs">
           <TXs projection={projection} centerStyle={centerStyle} />
         </div>
+        <div id="legend">
+          <img src={"./legend.svg"} />
+        </div>
         <div id="search-box">
           <SearchBox />
         </div>

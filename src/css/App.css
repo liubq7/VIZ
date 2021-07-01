@@ -59,3 +59,9 @@ h1 {
   top: 0;
   left: 0;
 }
+
+#legend {
+  position: absolute;
+  right: 0;
+  bottom: 20vh;
+}
