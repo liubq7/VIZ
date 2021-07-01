@@ -42,7 +42,7 @@
 #cryptape {
   position: absolute;
   top: 0;
-  right: 0;
+  right: -2px;
 }
 
 h1 {
@@ -63,5 +63,23 @@ h1 {
 #legend {
   position: absolute;
   right: 0;
-  bottom: 20vh;
+  bottom: 170px;
+}
+
+#decoration-top {
+  position: absolute;
+  right: 0;
+  top: 55px;
+}
+
+#decoration-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+#bottom-line {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
