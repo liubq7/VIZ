@@ -50,9 +50,7 @@ function App() {
         <div id="cryptape">
           <h1>CRYPTAPE</h1>
         </div>
-        <div id="txs">
-          <TXs projection={projection} centerStyle={centerStyle} />
-        </div>
+
         <div id="decoration-top">
           <img src={"./decoration-top.svg"} width={width * 0.1} />
         </div>
@@ -60,14 +58,35 @@ function App() {
           <img src={"./decoration-bottom.svg"} width={width * 0.1} />
         </div>
         <div id="legend">
-          <img src={"./legend.svg"} />
+          <img src={"./legend.svg"} width={width * 0.04} />
         </div>
         <div id="bottom-line">
-          <svg style={{width: width * 0.6, height: 2+"px"}}>
-            <line x1={0} y1={2} x2={width * 0.6} y2={2} style={{stroke: "#B8B8B8", strokeWidth: 0.5+"px"}} />
-            <rect x={width * 0.14} y={0} width={2} height={2} style={{fill: "#E6E6E6"}} />
-            <rect x={width * 0.6 - 2} y={0} width={2} height={2} style={{fill: "#E6E6E6"}} />
+          <svg style={{ width: width * 0.6, height: 2 + "px" }}>
+            <line
+              x1={0}
+              y1={2}
+              x2={width * 0.6}
+              y2={2}
+              style={{ stroke: "#B8B8B8", strokeWidth: 0.5 + "px" }}
+            />
+            <rect
+              x={width * 0.14}
+              y={0}
+              width={2}
+              height={2}
+              style={{ fill: "#E6E6E6" }}
+            />
+            <rect
+              x={width * 0.6 - 2}
+              y={0}
+              width={2}
+              height={2}
+              style={{ fill: "#E6E6E6" }}
+            />
           </svg>
+        </div>
+        <div id="txs">
+          <TXs projection={projection} centerStyle={centerStyle} />
         </div>
         <div id="search-box">
           <SearchBox />

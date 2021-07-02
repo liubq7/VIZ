@@ -83,3 +83,57 @@ h1 {
   right: 0;
   bottom: 0;
 }
+
+@media screen and (max-width: 1024px) {
+  h1 {
+    font-size: 40px;
+  }
+
+  #decoration-top {
+    top: 35px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  #legend {
+    bottom: 100px;
+  }
+  #decoration-top,
+  #decoration-bottom,
+  #bottom-line,
+  #search-box {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  #cryptape {
+    position: absolute;
+    top: -30px;
+    right: 0;
+  }
+
+  #legend,
+  #decoration-top,
+  #decoration-bottom,
+  #bottom-line,
+  #search-box {
+    display: none;
+  }
+
+}
+
+@media screen and (max-height: 400px) {
+  #cryptape,
+  #legend,
+  #decoration-top,
+  #decoration-bottom,
+  #bottom-line,
+  #search-box {
+    display: none;
+  }
+}
