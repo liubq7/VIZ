@@ -1,5 +1,7 @@
 const TXList = (props) => {
   const txs = props.txList;
+  const txVizHashChanger = props.txVizHashChanger;
+
   let listItems = [];
   for (let txKey of txs.keys()) {
     const unix_timestamp = txs.get(txKey);
@@ -12,7 +14,7 @@ const TXList = (props) => {
       hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
 
     const listItem = (
-      <li key={txKey}>
+      <li key={txKey} onClick={() => txVizHashChanger(txKey)}>
         <span style={{ color: "#18EFB1", fontSize: 12 + "px" }}>
           {/* {new Date(txs.get(txKey)).toString()} */}
           {formattedTime}
@@ -26,7 +28,7 @@ const TXList = (props) => {
 
   return (
     <ul>
-      <li key="test">
+      <li key="test" onClick={() => txVizHashChanger("test")}>
         <span style={{ color: "#18EFB1", fontSize: 12 + "px" }}>
           THISISFORTEST
         </span>

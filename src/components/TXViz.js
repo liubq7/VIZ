@@ -2,7 +2,10 @@ import { Fragment, useState, useEffect } from "react";
 import TXNodes from "./TXNodes";
 import "../css/TXViz.css";
 
-const TXViz = () => {
+const TXViz = (props) => {
+  const txVizHash = props.txVizHash;
+  const txVizHashChanger = props.txVizHashChanger;
+
   const startTime = 1622463474248;
   const endTime = 1622463476577;
   const [rangeval, setRangeval] = useState(startTime);
@@ -52,6 +55,11 @@ const TXViz = () => {
           }}
         >
           {btnText}
+        </button>
+        <button onClick={() => {
+          txVizHashChanger(null);
+        }}>
+          cancel
         </button>
       </div>
     </Fragment>

@@ -8,7 +8,7 @@ import { geoMiller } from "d3-geo-projection";
 import SearchBox from "./components/SearchBox";
 
 function App() {
-  const [showTXViz, setShowTXViz] = useState(false);
+  const [txVizHash, setTxVizHash] = useState(null);
 
   const { innerWidth, innerHeight } = useWindowDimensions();
   let width, height;
@@ -60,6 +60,13 @@ function App() {
         <div id="legend">
           <img src={"./legend.svg"} width={width * 0.04} />
         </div>
+        <div id="txs">
+          <TXs
+            projection={projection}
+            centerStyle={centerStyle}
+            txVizHashChanger={setTxVizHash}
+          />
+        </div>
         <div id="bottom-line">
           <svg style={{ width: width * 0.6, height: 2 + "px" }}>
             <line
@@ -85,14 +92,15 @@ function App() {
             />
           </svg>
         </div>
-        <div id="txs">
-          <TXs projection={projection} centerStyle={centerStyle} />
-        </div>
         <div id="search-box">
           <SearchBox />
         </div>
+        <div id="tx-viz">
+          {txVizHash == null ? null : (
+            <TXViz txVizHash={txVizHash} txVizHashChanger={setTxVizHash} />
+          )}
+        </div>
       </div>
-      <div>{showTXViz ? <TXViz /> : null}</div>
     </Fragment>
   );
 }

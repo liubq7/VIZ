@@ -63,7 +63,7 @@ const TXs = (props) => {
         <MapNodes txsInfo={txsInfo} scaleInfo={props} />
       </div>
       <div id="tx-list">
-        <TXList txList={txList} />
+        <TXList txList={txList} txVizHashChanger={props.txVizHashChanger} />
       </div>
     </div>
     </Fragment>
