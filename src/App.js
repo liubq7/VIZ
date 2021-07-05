@@ -98,7 +98,7 @@ function App() {
           </svg>
         </div>
         <div id="search-box">
-          <SearchBox />
+          <SearchBox txVizHashChanger={setTxVizHash} />
         </div>
       </div>
     </Fragment>
