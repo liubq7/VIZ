@@ -1,0 +1,130 @@
+$green-color: #18efb1;
+$white-color: #e6e6e6;
+$margin-outer: 10px;
+$margin-inner: 22px;
+
+.timeline-slider {
+  -webkit-appearance: none;
+  width: 500px;
+  height: 2.5px;
+  background: $white-color;
+  outline: none;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+@mixin rangeThumb {
+  width: 5px;
+  height: 15px;
+  background: $green-color;
+  cursor: pointer;
+}
+
+/* chrome */
+.timeline-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  @include rangeThumb();
+}
+
+/* firefox */
+.timeline-slider::-moz-range-thumb {
+  @include rangeThumb();
+}
+/* .timeline-slider::-moz-range-progress {
+  background-color: $green-color;
+} */
+
+/* IE */
+/* .timeline-slider::-ms-fill-lower {
+  background-color: $green-color;
+} */
+
+#timeline > * {
+  vertical-align: middle;
+}
+
+#play-button {
+  margin-left: 10px;
+  background: transparent;
+  width: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#bg {
+  backdrop-filter: blur(4px);
+}
+
+#tx-nodes {
+  position: absolute;
+  top: 0;
+}
+
+.timeline-time {
+  display: inline-block;
+  color: $green-color;
+  font-size: 11px;
+  margin-right: 10px;
+}
+
+#timeline {
+  position: absolute;
+  bottom: 15px;
+  margin-left: $margin-inner;
+}
+
+#cancel-button {
+  background-color: transparent;
+  width: 12px;
+  cursor: pointer;
+  position: absolute;
+  top: $margin-inner;
+  right: $margin-inner;
+}
+
+#tx-hash {
+  color: $white-color;
+  position: absolute;
+  top: $margin-inner;
+  left: $margin-inner;
+  font-size: 11px;
+  width: 150px;
+  word-break: break-all;
+  margin: 0;
+}
+
+@mixin corner($rotateDeg: 0deg) {
+  -webkit-transform: rotate($rotateDeg);
+  -moz-transform: rotate($rotateDeg);
+  -o-transform: rotate($rotateDeg);
+  -ms-transform: rotate($rotateDeg);
+  transform: rotate($rotateDeg);
+
+  position: absolute;
+  width: 12px;
+}
+
+#corner0 {
+  @include corner;
+  top: $margin-outer;
+  left: $margin-outer;
+}
+
+#corner1 {
+  @include corner(90deg);
+  top: $margin-outer;
+  right: $margin-outer;
+}
+
+#corner2 {
+  @include corner(180deg);
+  bottom: $margin-outer;
+  right: $margin-outer;
+}
+
+#corner3 {
+  @include corner(-90deg);
+  bottom: $margin-outer;
+  left: $margin-outer;
+}

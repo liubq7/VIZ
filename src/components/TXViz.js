@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect, useRef } from "react";
 import TXNodes from "./TXNodes";
-import "../css/TXViz.css";
+import "../css/TXViz.scss";
 
 const TXViz = (props) => {
   const txVizHash = props.txVizHash;
