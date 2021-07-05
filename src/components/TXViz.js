@@ -16,17 +16,17 @@ const TXViz = (props) => {
   const [btnSvg, setBtnSvg] = useState("./play.svg");
 
   const inputRef = useRef();
+  const activeRangeColor = "#18EFB1";
+  const rangeBackgroundColor = "#E6E6E6";
+  const setRangeColor = (value) => {
+    const progress = ((value - startTime) / (endTime - startTime)) * 100 + "%";
+    inputRef.current.style.background = `linear-gradient(90deg, ${activeRangeColor} 0% ${progress}, ${rangeBackgroundColor} ${progress} 100%)`;
+  };
+
   const handleChange = (event) => {
     const value = Number(event.target.value);
     setRangeval(value);
-    const progress =
-      ((rangeval - startTime) / (endTime - startTime)) * 100 + "%";
-    inputRef.current.style.background =
-      "linear-gradient(90deg, #18EFB1 0%" +
-      progress +
-      ", #E6E6E6 " +
-      progress +
-      "100%)";
+    setRangeColor(value);
   };
 
   useEffect(() => {
@@ -37,18 +37,15 @@ const TXViz = (props) => {
     if (play) {
       const timer = setInterval(() => {
         setRangeval(rangeval + 1);
-        const progress =
-          ((rangeval - startTime) / (endTime - startTime)) * 100 + "%";
-        inputRef.current.style.background =
-          "linear-gradient(90deg, #18EFB1 0%" +
-          progress +
-          ", #E6E6E6 " +
-          progress +
-          "100%)";
+        setRangeColor(rangeval);
       }, 1);
       return () => clearInterval(timer);
     }
   }, [rangeval, play]);
+
+  const cornerDecorations = (
+    [...Array(4)].map((e, i) => <img id={"corner"+i} src={"./corner.svg"} alt="" key={i} />)
+  )
 
   return (
     <Fragment>
@@ -63,10 +60,7 @@ const TXViz = (props) => {
           />
         </svg>
 
-        <img id="corner1" src={"./corner.svg"} alt="" />
-        <img id="corner2" src={"./corner.svg"} alt="" />
-        <img id="corner3" src={"./corner.svg"} alt="" />
-        <img id="corner4" src={"./corner.svg"} alt="" />
+        {cornerDecorations}
 
         <p id="tx-hash">{txVizHash}</p>
 
@@ -83,7 +77,6 @@ const TXViz = (props) => {
             min={startTime}
             max={endTime}
             value={rangeval}
-            // onChange={(event) => setRangeval(Number(event.target.value))}
             onChange={handleChange}
           />
           <img
