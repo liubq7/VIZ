@@ -15,7 +15,7 @@ const TXList = (props) => {
 
     const listItem = (
       <li key={txKey} onClick={() => txVizHashChanger(txKey)}>
-        <span style={{ color: "#18EFB1", fontSize: 12 + "px" }}>
+        <span style={{ color: "#18EFB1", fontSize: "12px" }}>
           {/* {new Date(txs.get(txKey)).toString()} */}
           {formattedTime}
         </span>
@@ -28,8 +28,8 @@ const TXList = (props) => {
 
   return (
     <ul>
-      <li key="test" onClick={() => txVizHashChanger("test")}>
-        <span style={{ color: "#18EFB1", fontSize: 12 + "px" }}>
+      <li key="test" onClick={() => txVizHashChanger("0x365698b50ca0da75dca2c87f9e7b563811d3b5813736b8cc62cc3b106faceb")}>
+        <span style={{ color: "#18EFB1", fontSize: "12px" }}>
           THISISFORTEST
         </span>
         <br />

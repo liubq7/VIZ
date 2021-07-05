@@ -67,17 +67,22 @@ function App() {
             txVizHashChanger={setTxVizHash}
           />
         </div>
+        <div id="tx-viz">
+          {txVizHash == null ? null : (
+            <TXViz txVizHash={txVizHash} txVizHashChanger={setTxVizHash} />
+          )}
+        </div>
         <div id="bottom-line">
-          <svg style={{ width: width * 0.6, height: 2 + "px" }}>
+          <svg style={{ width: width * 0.6, height: "2px" }}>
             <line
               x1={0}
               y1={2}
               x2={width * 0.6}
               y2={2}
-              style={{ stroke: "#B8B8B8", strokeWidth: 0.5 + "px" }}
+              style={{ stroke: "#B8B8B8", strokeWidth: "0.5px" }}
             />
             <rect
-              x={width * 0.14}
+              x={width * 0.6 - 670}
               y={0}
               width={2}
               height={2}
@@ -94,11 +99,6 @@ function App() {
         </div>
         <div id="search-box">
           <SearchBox />
-        </div>
-        <div id="tx-viz">
-          {txVizHash == null ? null : (
-            <TXViz txVizHash={txVizHash} txVizHashChanger={setTxVizHash} />
-          )}
         </div>
       </div>
     </Fragment>

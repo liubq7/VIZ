@@ -87,7 +87,7 @@ h1 {
 #tx-viz {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: 2.5px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -107,6 +107,7 @@ h1 {
   #decoration-top,
   #decoration-bottom,
   #bottom-line,
+  #tx-viz,
   #search-box {
     display: none;
   }

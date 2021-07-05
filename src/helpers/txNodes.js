@@ -1,12 +1,16 @@
 import * as d3 from "d3";
 
+const R = 2.5;
+const SPACING = 15;
+const NODES_NUM = 100;
+
 export const initializeNodes = (translateX, translateY) => {
-  const numNodes = 100;
+  const numNodes = NODES_NUM;
   let nodes = d3.range(numNodes).map(function () {
-    return { radius: 5 };
+    return { radius: R };
   });
 
-  const initialRadius = 20,
+  const initialRadius = SPACING,
     initialAngle = Math.PI * (3 - Math.sqrt(5));
 
   for (let i = 0, n = nodes.length, node; i < n; ++i) {
@@ -64,7 +68,7 @@ export const drawInitNodes = (svg, nodes) => {
     .attr("id", function (d) {
       return d.id;
     })
-    .style("fill", "white");
+    .style("fill", "#E6E6E6");
 
   return svg.node();
 };
@@ -73,19 +77,19 @@ export const drawLinkedNodes = (svg, nodes, nodesData, linksData) => {
   // console.log(nodesData);
   const p = svg.selectAll(".recieved").data(nodesData);
   p.enter().append("circle").attr("class", "recieved");
-  p.attr("r", 5)
+  p.attr("r", R)
     .attr("cx", function (d) {
       return nodes[d].x;
     })
     .attr("cy", function (d) {
       return nodes[d].y;
     })
-    .style("fill", "yellow");
+    .style("fill", "#18EFB1");
   p.exit().remove();
 
   const l = svg.selectAll(".connect").data(linksData);
   l.enter().append("line").attr("class", "connect");
-  l.style("stroke", "yellow")
+  l.style("stroke", "#18EFB1")
     .attr("x1", function (d) {
       return nodes[d.startPoint].x;
     })

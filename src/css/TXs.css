@@ -58,6 +58,10 @@ ul {
     -o-transform: scaleY(-1);
     transform: scaleY(-1);
   }
+
+  li {
+    cursor: pointer;
+  }
 }
 
 @media screen and (max-width: 1024px) {

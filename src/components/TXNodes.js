@@ -9,8 +9,8 @@ import { generateLinks, filterNodeData, filterLinkData } from "../helpers/proces
 
 const TXNodes = (props) => {
   const vizContainer = useRef();
-  const width = 800;
-  const height = 500;
+  const width = props.width;
+  const height = props.height - 40;
   // TODO: lift state up??
   const nodes = initializeNodes(width / 2, height / 2);
   const links = generateLinks();
