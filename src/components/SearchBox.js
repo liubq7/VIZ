@@ -16,7 +16,17 @@ const SearchBox = (props) => {
 
   return (
     <div className={isOpen ? "search open" : "search"}>
-      <input type="search" className="search-input" value={searchTX} onChange={e => setSearchTX(e.target.value)} />
+      <input
+        type="search"
+        className="search-input"
+        value={searchTX}
+        onChange={(e) => setSearchTX(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            toggleClass();
+          }
+        }}
+      />
       <span className="search-button" onClick={toggleClass}>
         <span className="search-icon"></span>
       </span>

@@ -62,11 +62,11 @@ const TXViz = (props) => {
 
         {cornerDecorations}
 
-        <p id="tx-hash">{txVizHash}</p>
-
         <div id="tx-nodes">
           <TXNodes time={rangeval} width={width} height={height} />
         </div>
+
+        <p id="tx-hash">{txVizHash}</p>
 
         <div id="timeline">
           <p className="timeline-time">{rangeval}</p>
