@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import TXNodes from "./TXNodes";
 import "../css/TXViz.css";
 
@@ -14,6 +14,14 @@ const TXViz = (props) => {
   const [rangeval, setRangeval] = useState(startTime);
   const [play, setPlay] = useState(false);
   const [btnSvg, setBtnSvg] = useState("./play.svg");
+
+  const inputRef = useRef();
+  const handleChange = (event) => {
+    const value = Number(event.target.value);
+    setRangeval(value);
+    const progress = (value - startTime) / (endTime - startTime) * 100 + "%";
+    inputRef.current.style.background = 'linear-gradient(90deg, #18EFB1 0%' + progress + ', #E6E6E6 ' + progress + '100%)';
+  }
 
   useEffect(() => {
     if (rangeval == endTime) {
@@ -39,10 +47,10 @@ const TXViz = (props) => {
           />
         </svg>
 
-        <img id="corner1" src={"./corner.svg"} />
-        <img id="corner2" src={"./corner.svg"} />
-        <img id="corner3" src={"./corner.svg"} />
-        <img id="corner4" src={"./corner.svg"} />
+        <img id="corner1" src={"./corner.svg"} alt="" />
+        <img id="corner2" src={"./corner.svg"} alt="" />
+        <img id="corner3" src={"./corner.svg"} alt="" />
+        <img id="corner4" src={"./corner.svg"} alt="" />
 
         <p id="tx-hash">{txVizHash}</p>
 
@@ -53,12 +61,14 @@ const TXViz = (props) => {
         <div id="timeline">
           <p className="timeline-time">{rangeval}</p>
           <input
+            ref={inputRef}
             type="range"
             className="timeline-slider"
             min={startTime}
             max={endTime}
             value={rangeval}
-            onChange={(event) => setRangeval(Number(event.target.value))}
+            // onChange={(event) => setRangeval(Number(event.target.value))}
+            onChange={handleChange}
           />
           <img
             id="play-button"
@@ -74,6 +84,7 @@ const TXViz = (props) => {
               setPlay(!play);
             }}
             src={btnSvg}
+            alt="play button"
           />
         </div>
 
@@ -83,6 +94,7 @@ const TXViz = (props) => {
             txVizHashChanger(null);
           }}
           src={"./cancel.svg"}
+          alt="cancel button"
         />
       </div>
     </Fragment>

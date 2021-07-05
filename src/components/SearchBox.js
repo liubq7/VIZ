@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import "../css/SearchBox.scss";
 
 const SearchBox = () => {
@@ -6,17 +6,15 @@ const SearchBox = () => {
 
   const toggleClass = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   return (
-    // <Fragment>
-      <div className={isOpen? "search open": "search"}>
-        <input type="search" className="search-input" />
-        <span className="search-button" onClick={toggleClass}>
-          <span className="search-icon"></span>
-        </span>
-      </div>
-    // </Fragment>
+    <div className={isOpen ? "search open" : "search"}>
+      <input type="search" className="search-input" />
+      <span className="search-button" onClick={toggleClass}>
+        <span className="search-icon"></span>
+      </span>
+    </div>
   );
 };
 
