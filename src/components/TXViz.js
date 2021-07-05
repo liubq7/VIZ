@@ -19,9 +19,15 @@ const TXViz = (props) => {
   const handleChange = (event) => {
     const value = Number(event.target.value);
     setRangeval(value);
-    const progress = (value - startTime) / (endTime - startTime) * 100 + "%";
-    inputRef.current.style.background = 'linear-gradient(90deg, #18EFB1 0%' + progress + ', #E6E6E6 ' + progress + '100%)';
-  }
+    const progress =
+      ((rangeval - startTime) / (endTime - startTime)) * 100 + "%";
+    inputRef.current.style.background =
+      "linear-gradient(90deg, #18EFB1 0%" +
+      progress +
+      ", #E6E6E6 " +
+      progress +
+      "100%)";
+  };
 
   useEffect(() => {
     if (rangeval == endTime) {
@@ -29,7 +35,17 @@ const TXViz = (props) => {
       setPlay(false);
     }
     if (play) {
-      const timer = setInterval(() => setRangeval(rangeval + 1), 1);
+      const timer = setInterval(() => {
+        setRangeval(rangeval + 1);
+        const progress =
+          ((rangeval - startTime) / (endTime - startTime)) * 100 + "%";
+        inputRef.current.style.background =
+          "linear-gradient(90deg, #18EFB1 0%" +
+          progress +
+          ", #E6E6E6 " +
+          progress +
+          "100%)";
+      }, 1);
       return () => clearInterval(timer);
     }
   }, [rangeval, play]);

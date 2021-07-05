@@ -9,7 +9,7 @@
   transition: opacity 0.2s;
 }
 
-/* chrome */
+/* chrome
 /* .timeline-slider::-webkit-slider-runnable-track {
   background: #18EFB1;
 } */
@@ -29,14 +29,14 @@
   background: #18efb1;
   cursor: pointer;
 }
-.timeline-slider::-moz-range-progress {
+/* .timeline-slider::-moz-range-progress {
   background-color: #18EFB1;
-}
+} */
 
 /* IE */
-.timeline-slider::-ms-fill-lower {
+/* .timeline-slider::-ms-fill-lower {
   background-color: #18EFB1;
-}
+} */
 
 #timeline > * {
   vertical-align: middle;
