@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import TXNodes from "./TXNodes";
 import "../css/TXViz.scss";
 
@@ -43,70 +43,68 @@ const TXViz = (props) => {
     }
   }, [rangeval, play]);
 
-  const cornerDecorations = (
-    [...Array(4)].map((e, i) => <img id={"corner"+i} src={"./corner.svg"} alt="" key={i} />)
-  )
+  const cornerDecorations = [...Array(4)].map((e, i) => (
+    <img id={"corner" + i} src={"./corner.svg"} alt="" key={i} />
+  ));
 
   return (
-    <Fragment>
-      <div style={{ width: width, height: height }}>
-        <svg id="bg" style={{ width: width, height: height }}>
-          <rect
-            x={0}
-            y={0}
-            width={width}
-            height={height}
-            style={{ fill: "#1F1F1F", opacity: 0.8 }}
-          />
-        </svg>
+    <div style={{ width: width, height: height }}>
+      <svg id="bg" style={{ width: width, height: height }}>
+        <rect
+          x={0}
+          y={0}
+          width={width}
+          height={height}
+          style={{ fill: "#1F1F1F", opacity: 0.8 }}
+        />
+      </svg>
 
-        {cornerDecorations}
+      {cornerDecorations}
 
-        <div id="tx-nodes">
-          <TXNodes time={rangeval} width={width} height={height} />
-        </div>
+      <div id="tx-nodes">
+        <TXNodes time={rangeval} width={width} height={height} />
+      </div>
 
-        <p id="tx-hash">{txVizHash}</p>
+      <p id="tx-hash">{txVizHash}</p>
 
-        <div id="timeline">
-          <p className="timeline-time">{rangeval}</p>
-          <input
-            ref={inputRef}
-            type="range"
-            className="timeline-slider"
-            min={startTime}
-            max={endTime}
-            value={rangeval}
-            onChange={handleChange}
-          />
-          <img
-            id="play-button"
-            onClick={() => {
-              if (rangeval == endTime) {
-                setRangeval(startTime);
-              }
-              if (play) {
-                setBtnSvg("./play.svg");
-              } else {
-                setBtnSvg("./pause.svg");
-              }
-              setPlay(!play);
-            }}
-            src={btnSvg}
-            alt="play button"
-          />
-        </div>
-
+      <div id="timeline">
+        <p className="timeline-time">{rangeval}</p>
+        <input
+          ref={inputRef}
+          type="range"
+          className="timeline-slider"
+          min={startTime}
+          max={endTime}
+          value={rangeval}
+          onChange={handleChange}
+        />
         <img
-          id="cancel-button"
+          id="play-button"
           onClick={() => {
-            txVizHashChanger(null);
+            if (rangeval == endTime) {
+              setRangeval(startTime);
+            }
+            if (play) {
+              setBtnSvg("./play.svg");
+            } else {
+              setBtnSvg("./pause.svg");
+            }
+            setPlay(!play);
           }}
-          src={"./cancel.svg"}
-          alt="cancel button"
+          src={btnSvg}
+          alt="play button"
         />
       </div>
-    </Fragment>
+
+      <img
+        id="cancel-button"
+        onClick={() => {
+          txVizHashChanger(null);
+        }}
+        src={"./cancel.svg"}
+        alt="cancel button"
+      />
+    </div>
   );
 };
 

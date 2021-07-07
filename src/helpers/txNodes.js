@@ -68,13 +68,20 @@ export const drawInitNodes = (svg, nodes) => {
     .attr("id", function (d) {
       return d.id;
     })
+    .attr("data-tip", function(d) {
+      return d.id;
+    })
+    // .append("svg:title")
+    // .text(function(d) {
+    //   return d.id;
+    // })
     .style("fill", "#E6E6E6");
 
   return svg.node();
 };
 
 export const drawLinkedNodes = (svg, nodes, nodesData, linksData) => {
-  // console.log(nodesData);
+  console.log(nodesData);
   const p = svg.selectAll(".recieved").data(nodesData);
   p.enter().append("circle").attr("class", "recieved");
   p.attr("r", R)
@@ -83,6 +90,9 @@ export const drawLinkedNodes = (svg, nodes, nodesData, linksData) => {
     })
     .attr("cy", function (d) {
       return nodes[d].y;
+    })
+    .attr("data-tip", function(d) {
+      return nodes[d].id;
     })
     .style("fill", "#18EFB1");
   p.exit().remove();

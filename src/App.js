@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import "./css/App.css";
 import TXs from "./components/TXs";
 import WorldMap from "./components/WorldMap";
@@ -34,74 +34,68 @@ function App() {
   };
 
   return (
-    <Fragment>
-      {/* <button
-        onClick={() => {
-          setShowTXViz(!showTXViz);
-        }}
-      >
-        show tx
-      </button> */}
-
-      <div style={centerStyle}>
-        <div id="world-map">
-          <WorldMap projection={projection} centerStyle={centerStyle} />
-        </div>
-        <div id="cryptape">
-          <h1>CRYPTAPE</h1>
-        </div>
-
-        <div id="decoration-top">
-          <img src={"./decoration-top.svg"} width={width * 0.1} />
-        </div>
-        <div id="decoration-bottom">
-          <img src={"./decoration-bottom.svg"} width={width * 0.1} />
-        </div>
-        <div id="legend">
-          <img src={"./legend.svg"} width={width * 0.04} />
-        </div>
-        <div id="txs">
-          <TXs
-            projection={projection}
-            centerStyle={centerStyle}
-            txVizHashChanger={setTxVizHash}
-          />
-        </div>
-        <div id="tx-viz">
-          {txVizHash == null ? null : (
-            <TXViz txVizHash={txVizHash} txVizHashChanger={setTxVizHash} />
-          )}
-        </div>
-        <div id="bottom-line">
-          <svg style={{ width: width * 0.6, height: "2px" }}>
-            <line
-              x1={0}
-              y1={2}
-              x2={width * 0.6}
-              y2={2}
-              style={{ stroke: "#B8B8B8", strokeWidth: "0.5px" }}
-            />
-            <rect
-              x={width * 0.6 - 670}
-              y={0}
-              width={2}
-              height={2}
-              style={{ fill: "#E6E6E6" }}
-            />
-            <rect
-              x={width * 0.6 - 2}
-              y={0}
-              width={2}
-              height={2}
-              style={{ fill: "#E6E6E6" }}
-            />
-          </svg>
-        </div>
-        <div id="search-box">
-          <SearchBox txVizHashChanger={setTxVizHash} />
-        </div>
+    <div style={centerStyle}>
+      <div id="world-map">
+        <WorldMap projection={projection} centerStyle={centerStyle} />
       </div>
-    </Fragment>
+
+      <div id="cryptape">
+        <h1>CRYPTAPE</h1>
+      </div>
+      <div id="decoration-top">
+        <img src={"./decoration-top.svg"} width={width * 0.1} />
+      </div>
+      <div id="decoration-bottom">
+        <img src={"./decoration-bottom.svg"} width={width * 0.1} />
+      </div>
+      <div id="legend">
+        <img src={"./legend.svg"} width={width * 0.04} />
+      </div>
+
+      {/* <div id="txs">
+        <TXs
+          projection={projection}
+          centerStyle={centerStyle}
+          txVizHashChanger={setTxVizHash}
+        />
+      </div> */}
+
+      <div id="tx-viz">
+        {txVizHash == null ? null : (
+          <TXViz txVizHash={txVizHash} txVizHashChanger={setTxVizHash} />
+        )}
+      </div>
+
+      <div id="bottom-line">
+        <svg style={{ width: width * 0.6, height: "2px" }}>
+          <line
+            x1={0}
+            y1={2}
+            x2={width * 0.6}
+            y2={2}
+            style={{ stroke: "#B8B8B8", strokeWidth: "0.5px" }}
+          />
+          <rect
+            x={width * 0.6 - 670}
+            y={0}
+            width={2}
+            height={2}
+            style={{ fill: "#E6E6E6" }}
+          />
+          <rect
+            x={width * 0.6 - 2}
+            y={0}
+            width={2}
+            height={2}
+            style={{ fill: "#E6E6E6" }}
+          />
+        </svg>
+      </div>
+
+      <div id="search-box">
+        <SearchBox txVizHashChanger={setTxVizHash} />
+      </div>
+    </div>
   );
 }
 
