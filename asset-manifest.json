@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/VIZ/static/css/main.bb9d5469.chunk.css",
+    "main.js": "/VIZ/static/js/main.1943bc47.chunk.js",
+    "main.js.map": "/VIZ/static/js/main.1943bc47.chunk.js.map",
+    "runtime-main.js": "/VIZ/static/js/runtime-main.6c432bf8.js",
+    "runtime-main.js.map": "/VIZ/static/js/runtime-main.6c432bf8.js.map",
+    "static/js/2.731c8549.chunk.js": "/VIZ/static/js/2.731c8549.chunk.js",
+    "static/js/2.731c8549.chunk.js.map": "/VIZ/static/js/2.731c8549.chunk.js.map",
+    "static/js/3.feb71c5f.chunk.js": "/VIZ/static/js/3.feb71c5f.chunk.js",
+    "static/js/3.feb71c5f.chunk.js.map": "/VIZ/static/js/3.feb71c5f.chunk.js.map",
+    "index.html": "/VIZ/index.html",
+    "static/css/main.bb9d5469.chunk.css.map": "/VIZ/static/css/main.bb9d5469.chunk.css.map",
+    "static/js/2.731c8549.chunk.js.LICENSE.txt": "/VIZ/static/js/2.731c8549.chunk.js.LICENSE.txt",
+    "static/media/nodes.16a1ae4c.csv": "/VIZ/static/media/nodes.16a1ae4c.csv"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c432bf8.js",
+    "static/js/2.731c8549.chunk.js",
+    "static/css/main.bb9d5469.chunk.css",
+    "static/js/main.1943bc47.chunk.js"
+  ]
+}
