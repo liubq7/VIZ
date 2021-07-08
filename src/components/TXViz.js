@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import TXNodes from "./TXNodes";
 import "../css/TXViz.scss";
+import corner from "../images/corner.svg";
+import cancel from "../images/cancel.svg";
+import playSvg from "../images/play.svg";
+import pauseSvg from "../images/pause.svg";
 
 const TXViz = (props) => {
   const txVizHash = props.txVizHash;
@@ -13,7 +17,7 @@ const TXViz = (props) => {
   const endTime = 1622463476577;
   const [rangeval, setRangeval] = useState(startTime);
   const [play, setPlay] = useState(false);
-  const [btnSvg, setBtnSvg] = useState("./play.svg");
+  const [btnSvg, setBtnSvg] = useState(playSvg);
 
   const inputRef = useRef();
   const activeRangeColor = "#18EFB1";
@@ -31,7 +35,7 @@ const TXViz = (props) => {
 
   useEffect(() => {
     if (rangeval == endTime) {
-      setBtnSvg("./play.svg");
+      setBtnSvg(playSvg);
       setPlay(false);
     }
     if (play) {
@@ -44,7 +48,7 @@ const TXViz = (props) => {
   }, [rangeval, play]);
 
   const cornerDecorations = [...Array(4)].map((e, i) => (
-    <img id={"corner" + i} src={"./corner.svg"} alt="" key={i} />
+    <img id={"corner" + i} src={corner} alt="" key={i} />
   ));
 
   return (
@@ -85,9 +89,9 @@ const TXViz = (props) => {
               setRangeval(startTime);
             }
             if (play) {
-              setBtnSvg("./play.svg");
+              setBtnSvg(playSvg);
             } else {
-              setBtnSvg("./pause.svg");
+              setBtnSvg(pauseSvg);
             }
             setPlay(!play);
           }}
@@ -101,7 +105,7 @@ const TXViz = (props) => {
         onClick={() => {
           txVizHashChanger(null);
         }}
-        src={"./cancel.svg"}
+        src={cancel}
         alt="cancel button"
       />
     </div>

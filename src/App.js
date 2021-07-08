@@ -6,9 +6,12 @@ import TXViz from "./components/TXViz";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import { geoMiller } from "d3-geo-projection";
 import SearchBox from "./components/SearchBox";
+import decorationTop from "./images/decorationTop.svg";
+import decorationBottom from "./images/decorationBottom.svg";
+import legend from "./images/legend.svg";
 
 function App() {
-  const [txVizHash, setTxVizHash] = useState(null);
+  const [txVizHash, setTxVizHash] = useState("");
 
   const { innerWidth, innerHeight } = useWindowDimensions();
   let width, height;
@@ -43,13 +46,13 @@ function App() {
         <h1>CRYPTAPE</h1>
       </div>
       <div id="decoration-top">
-        <img src={"./decoration-top.svg"} width={width * 0.1} />
+        <img src={decorationTop} width={width * 0.1} alt="" />
       </div>
       <div id="decoration-bottom">
-        <img src={"./decoration-bottom.svg"} width={width * 0.1} />
+        <img src={decorationBottom} width={width * 0.1} alt="" />
       </div>
       <div id="legend">
-        <img src={"./legend.svg"} width={width * 0.04} />
+        <img src={legend} width={width * 0.04} alt="" />
       </div>
 
       {/* <div id="txs">
@@ -61,7 +64,7 @@ function App() {
       </div> */}
 
       <div id="tx-viz">
-        {txVizHash == null ? null : (
+        {txVizHash === "" ? null : (
           <TXViz txVizHash={txVizHash} txVizHashChanger={setTxVizHash} />
         )}
       </div>
