@@ -55,13 +55,13 @@ function App() {
         <img src={legend} width={width * 0.04} alt="" />
       </div>
 
-      {/* <div id="txs">
+      <div id="txs">
         <TXs
           projection={projection}
           centerStyle={centerStyle}
           txVizHashChanger={setTxVizHash}
         />
-      </div> */}
+      </div>
 
       <div id="tx-viz">
         {txVizHash === "" ? null : (

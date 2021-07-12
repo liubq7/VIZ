@@ -15,7 +15,7 @@ const TXViz = (props) => {
 
   const startTime = 1622463474248;
   const endTime = 1622463476577;
-  const [rangeval, setRangeval] = useState(startTime);
+  const [rangeVal, setrangeVal] = useState(startTime);
   const [play, setPlay] = useState(false);
   const [btnSvg, setBtnSvg] = useState(playSvg);
 
@@ -29,23 +29,23 @@ const TXViz = (props) => {
 
   const handleChange = (event) => {
     const value = Number(event.target.value);
-    setRangeval(value);
+    setrangeVal(value);
     setRangeColor(value);
   };
 
   useEffect(() => {
-    if (rangeval == endTime) {
+    if (rangeVal == endTime) {
       setBtnSvg(playSvg);
       setPlay(false);
     }
     if (play) {
       const timer = setInterval(() => {
-        setRangeval(rangeval + 1);
-        setRangeColor(rangeval);
+        setrangeVal(rangeVal + 1);
+        setRangeColor(rangeVal);
       }, 1);
       return () => clearInterval(timer);
     }
-  }, [rangeval, play]);
+  }, [rangeVal, play]);
 
   const cornerDecorations = [...Array(4)].map((e, i) => (
     <img id={"corner" + i} src={corner} alt="" key={i} />
@@ -66,27 +66,27 @@ const TXViz = (props) => {
       {cornerDecorations}
 
       <div id="tx-nodes">
-        <TXNodes time={rangeval} width={width} height={height} />
+        <TXNodes time={rangeVal} width={width} height={height} />
       </div>
 
       <p id="tx-hash">{txVizHash}</p>
 
       <div id="timeline">
-        <p className="timeline-time">{rangeval}</p>
+        <p className="timeline-time">{rangeVal}</p>
         <input
           ref={inputRef}
           type="range"
           className="timeline-slider"
           min={startTime}
           max={endTime}
-          value={rangeval}
+          value={rangeVal}
           onChange={handleChange}
         />
         <img
           id="play-button"
           onClick={() => {
-            if (rangeval == endTime) {
-              setRangeval(startTime);
+            if (rangeVal == endTime) {
+              setrangeVal(startTime);
             }
             if (play) {
               setBtnSvg(playSvg);
@@ -103,7 +103,7 @@ const TXViz = (props) => {
       <img
         id="cancel-button"
         onClick={() => {
-          txVizHashChanger(null);
+          txVizHashChanger("");
         }}
         src={cancel}
         alt="cancel button"
