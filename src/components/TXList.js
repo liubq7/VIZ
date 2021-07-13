@@ -28,13 +28,13 @@ const TXList = (props) => {
 
   return (
     <ul>
-      <li key="test" onClick={() => txVizHashChanger("0x365698b50ca0da75dca2c87f9e7b563811d3b5813736b8cc62cc3b106faceb")}>
+      {/* <li key="test" onClick={() => txVizHashChanger("0x365698b50ca0da75dca2c87f9e7b563811d3b5813736b8cc62cc3b106faceb")}>
         <span style={{ color: "#18EFB1", fontSize: "12px" }}>
           THISISFORTEST
         </span>
         <br />
         0x365698b50ca0da75dca2c87f9e7b563811d3b5813736b8cc62cc3b106faceb
-      </li>
+      </li> */}
       {listItems}
     </ul>
   );

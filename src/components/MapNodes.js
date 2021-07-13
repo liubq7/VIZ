@@ -9,13 +9,15 @@ const MapNodes = (props) => {
   const projection = scaleInfo.projection;
   const centerStyle = scaleInfo.centerStyle;
 
+  console.log(txsInfo);
+
   let m = new Map();
   let s = new Set();
   for (let i = 0; i < 100; i++) {
     m.set(i.toString(), 0);
   }
   for (let i in txsInfo) {
-    const node = txsInfo[i].node;
+    const node = txsInfo[i].node.toString();
     const hash = txsInfo[i].hash;
     m.set(node, m.get(node) + 1);
     s.add(hash);

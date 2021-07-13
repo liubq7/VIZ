@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MapNodes from "./MapNodes";
 import TXList from "./TXList";
 import "../css/TXs.css";
-import generateOneTX from "../helpers/generateTX";
+import generateTXs from "../helpers/generateTXs";
 
 const TXs = (props) => {
   const [txList, setTxList] = useState(new Map());
@@ -22,7 +22,7 @@ const TXs = (props) => {
     const currTime = Date.now();
     setTxsInfo((txsInfo) => {
       const temp = [...txsInfo, txInfo];
-      return temp.filter((tx) => currTime - tx.timestamp < 10000);
+      return temp.filter((tx) => currTime - tx.timestamp < 5000);
     });
 
     const txHash = currTx.hash;
@@ -40,7 +40,7 @@ const TXs = (props) => {
   }
 
   useEffect(() => {
-    generateOneTX(1, setCurrTx);
+    generateTXs(setCurrTx);
   }, []);
 
   return (

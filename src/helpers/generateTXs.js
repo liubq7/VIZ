@@ -48,4 +48,12 @@ const generateOneTX = async (txId, setCurrTx) => {
   }
 };
 
-export default generateOneTX;
+const generateTXs = (setCurrTx) => {
+  let i = 0;
+  setInterval(function() {
+    generateOneTX(i, setCurrTx);
+    i += 1;
+  }, 3000);
+}
+
+export default generateTXs;
