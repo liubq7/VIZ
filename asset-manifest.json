@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/VIZ/static/css/main.bb9d5469.chunk.css",
-    "main.js": "/VIZ/static/js/main.f70a51c6.chunk.js",
-    "main.js.map": "/VIZ/static/js/main.f70a51c6.chunk.js.map",
+    "main.js": "/VIZ/static/js/main.b4ea5f7a.chunk.js",
+    "main.js.map": "/VIZ/static/js/main.b4ea5f7a.chunk.js.map",
     "runtime-main.js": "/VIZ/static/js/runtime-main.74e0d72d.js",
     "runtime-main.js.map": "/VIZ/static/js/runtime-main.74e0d72d.js.map",
     "static/js/2.145acff2.chunk.js": "/VIZ/static/js/2.145acff2.chunk.js",
@@ -25,6 +25,6 @@
     "static/js/runtime-main.74e0d72d.js",
     "static/js/2.145acff2.chunk.js",
     "static/css/main.bb9d5469.chunk.css",
-    "static/js/main.f70a51c6.chunk.js"
+    "static/js/main.b4ea5f7a.chunk.js"
   ]
 }
