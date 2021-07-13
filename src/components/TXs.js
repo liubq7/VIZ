@@ -22,7 +22,7 @@ const TXs = (props) => {
     const currTime = Date.now();
     setTxsInfo((txsInfo) => {
       const temp = [...txsInfo, txInfo];
-      return temp.filter((tx) => currTime - tx.timestamp < 5000);
+      return temp.filter((tx) => currTime - tx.timestamp < 10000);
     });
 
     const txHash = currTx.hash;
