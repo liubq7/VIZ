@@ -2,56 +2,45 @@ import React, { useState, useEffect } from "react";
 import MapNodes from "./MapNodes";
 import TXList from "./TXList";
 import "../css/TXs.css";
+import generateOneTX from "../helpers/generateTX";
 
 const TXs = (props) => {
   const [txList, setTxList] = useState(new Map());
   const [txsInfo, setTxsInfo] = useState([]);
+  const [currTx, setCurrTx] = useState();
 
-  const ws = new WebSocket("ws://localhost:8887"); //18115, 8887
-
-  const initWebsocket = () => {
-    ws.onopen = function () {
-      console.log("CONNECTED");
-      ws.send(
-        '{"id": 2, "jsonrpc": "2.0", "method": "subscribe", "params": ["new_transaction"]}'
-      );
-    };
-    ws.onmessage = function (evt) {
-      // fetch data in regular time??
-      const txInfo = JSON.parse(evt.data);
-      const currTime = Date.now();
-      setTxsInfo((txsInfo) => {
-        const temp = [...txsInfo, txInfo];
-        return temp.filter((tx) => currTime - tx.timestamp < 10000);
-      });
-
-      const txHash = JSON.parse(evt.data).hash;
-      const timestamp = Number(JSON.parse(evt.data).timestamp);
-
-      const newTx = new Map([[txHash, timestamp]]);
-      setTxList((txList) => {
-        // BUG: may show one tx repeatedly
-        if (!txList.has(txHash)) {
-          return new Map([...newTx, ...txList].slice(0, 6));
-        } else {
-          return txList;
-        }
-      });
-    };
-    ws.onerror = function (evt) {
-      console.log("ERROR:" + evt);
-    };
-    ws.onclose = function (evt) {
-      console.log("DISCONNECTED");
-      initWebsocket();
-    };
-  };
+  // console.log(currTx);
 
   useEffect(() => {
-    initWebsocket();
-    return () => {
-      ws.close();
-    };
+    if (currTx) {
+      update();
+    }
+  }, [currTx]);
+
+  function update() {
+    const txInfo = currTx;
+    const currTime = Date.now();
+    setTxsInfo((txsInfo) => {
+      const temp = [...txsInfo, txInfo];
+      return temp.filter((tx) => currTime - tx.timestamp < 10000);
+    });
+
+    const txHash = currTx.hash;
+    const timestamp = Number(currTx.timestamp);
+
+    const newTx = new Map([[txHash, timestamp]]);
+    setTxList((txList) => {
+      // BUG: may show one tx repeatedly
+      if (!txList.has(txHash)) {
+        return new Map([...newTx, ...txList].slice(0, 6));
+      } else {
+        return txList;
+      }
+    });
+  }
+
+  useEffect(() => {
+    generateOneTX(1, setCurrTx);
   }, []);
 
   return (
