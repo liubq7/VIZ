@@ -53,7 +53,7 @@ const generateTXs = (setCurrTx) => {
   setInterval(function() {
     generateOneTX(i, setCurrTx);
     i += 1;
-  }, 3000);
+  }, 2000);
 }
 
 export default generateTXs;
