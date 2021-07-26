@@ -1,6 +1,10 @@
+import { useContext } from "react";
+import { TXVizContext } from "../context/TXVizContext";
+
 const TXList = (props) => {
   const txs = props.txList;
-  const txVizHashChanger = props.txVizHashChanger;
+
+  const { setTxVizHash } = useContext(TXVizContext);
 
   let listItems = [];
   for (let txKey of txs.keys()) {
@@ -14,7 +18,7 @@ const TXList = (props) => {
       hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
 
     const listItem = (
-      <li key={txKey} onClick={() => txVizHashChanger(txKey)}>
+      <li key={txKey} onClick={() => setTxVizHash(txKey)}>
         <span style={{ color: "#18EFB1", fontSize: "12px" }}>
           {/* {new Date(txs.get(txKey)).toString()} */}
           {formattedTime}
@@ -26,18 +30,7 @@ const TXList = (props) => {
     listItems.push(listItem);
   }
 
-  return (
-    <ul>
-      {/* <li key="test" onClick={() => txVizHashChanger("0x365698b50ca0da75dca2c87f9e7b563811d3b5813736b8cc62cc3b106faceb")}>
-        <span style={{ color: "#18EFB1", fontSize: "12px" }}>
-          THISISFORTEST
-        </span>
-        <br />
-        0x365698b50ca0da75dca2c87f9e7b563811d3b5813736b8cc62cc3b106faceb
-      </li> */}
-      {listItems}
-    </ul>
-  );
+  return <ul>{listItems}</ul>;
 };
 
 export default TXList;

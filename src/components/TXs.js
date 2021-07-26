@@ -9,8 +9,6 @@ const TXs = (props) => {
   const [txsInfo, setTxsInfo] = useState([]);
   const [currTx, setCurrTx] = useState();
 
-  // console.log(currTx);
-
   useEffect(() => {
     if (currTx) {
       update();
@@ -49,7 +47,7 @@ const TXs = (props) => {
         <MapNodes txsInfo={txsInfo} scaleInfo={props} />
       </div>
       <div id="tx-list">
-        <TXList txList={txList} txVizHashChanger={props.txVizHashChanger} />
+        <TXList txList={txList} />
       </div>
     </div>
   );

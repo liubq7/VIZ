@@ -2,11 +2,11 @@ import * as d3 from "d3";
 
 const R = 2.5;
 const SPACING = 15;
-const NODES_NUM = 100;
+// const NODES_NUM = 100;
 
-export const initializeNodes = (translateX, translateY) => {
-  const numNodes = NODES_NUM;
-  let nodes = d3.range(numNodes).map(function () {
+export const initializeNodes = (translateX, translateY, nodesNum) => {
+  // const numNodes = NODES_NUM;
+  let nodes = d3.range(nodesNum).map(function () {
     return { radius: R };
   });
 
@@ -80,7 +80,6 @@ export const drawInitNodes = (svg, nodes) => {
 };
 
 export const drawLinkedNodes = (svg, nodes, nodesData, linksData) => {
-  // console.log(nodesData);
   const p = svg.selectAll(".recieved").data(nodesData);
   p.enter()
     .append("circle")
@@ -99,8 +98,10 @@ export const drawLinkedNodes = (svg, nodes, nodesData, linksData) => {
   p.exit().remove();
 
   const l = svg.selectAll(".connect").data(linksData);
-  l.enter().append("line").attr("class", "connect");
-  l.style("stroke", "#18EFB1")
+  l.enter()
+    .append("line")
+    .attr("class", "connect")
+    .style("stroke", "#18EFB1")
     .attr("x1", function (d) {
       return nodes[d.startPoint].x;
     })

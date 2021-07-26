@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./css/App.css";
 import TXs from "./components/TXs";
 import WorldMap from "./components/WorldMap";
@@ -9,9 +9,10 @@ import SearchBox from "./components/SearchBox";
 import decorationTop from "./images/decorationTop.svg";
 import decorationBottom from "./images/decorationBottom.svg";
 import legend from "./images/legend.svg";
+import { TXVizContext } from "./context/TXVizContext";
 
 function App() {
-  const [txVizHash, setTxVizHash] = useState("");
+  const {txVizHash, setTxVizHash} = useContext(TXVizContext);
 
   const { innerWidth, innerHeight } = useWindowDimensions();
   let width, height;
@@ -59,13 +60,12 @@ function App() {
         <TXs
           projection={projection}
           centerStyle={centerStyle}
-          txVizHashChanger={setTxVizHash}
         />
       </div>
 
       <div id="tx-viz">
         {txVizHash === "" ? null : (
-          <TXViz txVizHash={txVizHash} txVizHashChanger={setTxVizHash} />
+          <TXViz />
         )}
       </div>
 
@@ -96,7 +96,7 @@ function App() {
       </div>
 
       <div id="search-box">
-        <SearchBox txVizHashChanger={setTxVizHash} />
+        <SearchBox />
       </div>
     </div>
   );

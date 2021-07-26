@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { TXVizContextProvider } from './context/TXVizContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TXVizContextProvider>
+      <App />
+    </TXVizContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { TXVizContext } from "../context/TXVizContext";
 import "../css/SearchBox.scss";
 
 const SearchBox = (props) => {
   // TODO: handle error, maxlength, etc.
   const [isOpen, setIsOpen] = useState(false);
   const [searchTX, setSearchTX] = useState();
-  const txVizHashChanger = props.txVizHashChanger;
+
+  const { setTxVizHash } = useContext(TXVizContext);
 
   const toggleClass = () => {
     if (isOpen) {
-      txVizHashChanger(searchTX);
+      setTxVizHash(searchTX);
     }
     setIsOpen(!isOpen);
   };

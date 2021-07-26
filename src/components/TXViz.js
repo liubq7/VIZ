@@ -1,23 +1,48 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import TXNodes from "./TXNodes";
 import "../css/TXViz.scss";
 import corner from "../images/corner.svg";
 import cancel from "../images/cancel.svg";
 import playSvg from "../images/play.svg";
 import pauseSvg from "../images/pause.svg";
+import { TXVizContext } from "../context/TXVizContext";
+import TxFinder from "../apis/TXFinder";
 
-const TXViz = (props) => {
-  const txVizHash = props.txVizHash;
-  const txVizHashChanger = props.txVizHashChanger;
-
+const TXViz = () => {
   const width = 670;
   const height = 380;
 
-  const startTime = 1622463474248;
-  const endTime = 1622463476577;
+  const { txVizHash, setTxVizHash } = useContext(TXVizContext);
+  const { setTxVizData } = useContext(TXVizContext);
+
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+
   const [rangeVal, setrangeVal] = useState(startTime);
   const [play, setPlay] = useState(false);
   const [btnSvg, setBtnSvg] = useState(playSvg);
+
+  useEffect(() => {
+    const fetchTxVizData = async () => {
+      try {
+        const response = await TxFinder.get(`/${txVizHash}/nodes`);
+        setTxVizData(response.data);
+        setStartTime(Number(response.data[0].unix_timestamp));
+        setEndTime(Number(response.data.slice(-1)[0].unix_timestamp));
+        setrangeVal(Number(response.data[0].unix_timestamp));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchTxVizData();
+  }, [txVizHash]);
+
+  // const startTime = txVizData[0].unix_timestamp;
+  // const endTime = txVizData.slice(-1)[0].unix_timestamp;
+
+  // const startTime = 1622463474248;
+  // const endTime = 1622463476577;
 
   const inputRef = useRef();
   const activeRangeColor = "#18EFB1";
@@ -52,8 +77,8 @@ const TXViz = (props) => {
   ));
 
   return (
-    <div style={{ width: width, height: height }}>
-      <svg id="bg" style={{ width: width, height: height }}>
+    <div style={{ width, height }}>
+      <svg id="bg" style={{ width, height }}>
         <rect
           x={0}
           y={0}
@@ -103,7 +128,7 @@ const TXViz = (props) => {
       <img
         id="cancel-button"
         onClick={() => {
-          txVizHashChanger("");
+          setTxVizHash("");
         }}
         src={cancel}
         alt="cancel button"
