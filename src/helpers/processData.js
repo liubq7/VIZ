@@ -1,30 +1,31 @@
-// import txTestData from "../data/txTestData.json";
 import seedrandom from "seedrandom";
 
 export const generateLinks = (txVizData, txVizHash) => {
-  const dataset = txVizData;
   const rng = seedrandom(txVizHash); // using tx's hash as seed
   let links = [];
-  for (let i = 1; i < dataset.length; i++) {
+  for (let i = 1; i < txVizData.length; i++) {
     let prevNode = i;
-    while (dataset[prevNode].unix_timestamp == dataset[i].unix_timestamp) {
+    while (txVizData[prevNode].unix_timestamp == txVizData[i].unix_timestamp) {
       prevNode = Math.floor(Math.pow(rng(), 0.5) * i);
     }
-    links.push({startPoint: prevNode, endPoint: i, timestamp: dataset[i].unix_timestamp});
+    links.push({
+      startPoint: prevNode,
+      endPoint: i,
+      timestamp: txVizData[i].unix_timestamp,
+    });
   }
   return links;
-}
+};
 
 export const filterNodeData = (time, txVizData) => {
-  const dataset = txVizData;
   let i = 0;
   let nodeData = [];
-  while (i < dataset.length && dataset[i].unix_timestamp <= time) {
+  while (i < txVizData.length && txVizData[i].unix_timestamp <= time) {
     nodeData.push(i);
     i += 1;
   }
   return nodeData;
-}
+};
 
 export const filterLinkData = (time, links) => {
   let i = 0;
@@ -37,4 +38,18 @@ export const filterLinkData = (time, links) => {
     linkData = linkData.slice(-40);
   }
   return linkData;
-}
+};
+
+export const formatTimestamp = (timestamp) => {
+  const unix_timestamp = Number(timestamp);
+
+  const date = new Date(unix_timestamp);
+  const hours = date.getHours();
+  const minutes = "0" + date.getMinutes();
+  const seconds = "0" + date.getSeconds();
+
+  const formattedTime =
+    hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+
+  return formattedTime;
+};

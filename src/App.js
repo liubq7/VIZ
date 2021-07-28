@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./css/App.css";
 import TXs from "./components/TXs";
 import WorldMap from "./components/WorldMap";
@@ -12,7 +12,7 @@ import legend from "./images/legend.svg";
 import { TXVizContext } from "./context/TXVizContext";
 
 function App() {
-  const {txVizHash, setTxVizHash} = useContext(TXVizContext);
+  const { txVizHash } = useContext(TXVizContext);
 
   const { innerWidth, innerHeight } = useWindowDimensions();
   let width, height;
@@ -57,17 +57,10 @@ function App() {
       </div>
 
       <div id="txs">
-        <TXs
-          projection={projection}
-          centerStyle={centerStyle}
-        />
+        <TXs projection={projection} centerStyle={centerStyle} />
       </div>
 
-      <div id="tx-viz">
-        {txVizHash === "" ? null : (
-          <TXViz />
-        )}
-      </div>
+      <div id="tx-viz">{txVizHash === "" ? null : <TXViz />}</div>
 
       <div id="bottom-line">
         <svg style={{ width: width * 0.6, height: "2px" }}>
