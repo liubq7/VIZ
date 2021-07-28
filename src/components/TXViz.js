@@ -25,7 +25,7 @@ const TXViz = () => {
   useEffect(() => {
     const fetchTxVizData = async () => {
       try {
-        const response = await TxFinder.get(`/${txVizHash}/nodes`);
+        const response = await TxFinder.get(`/${txVizHash}`);
         setTxVizData(response.data);
         setStartTime(Number(response.data[0].unix_timestamp));
         setEndTime(Number(response.data.slice(-1)[0].unix_timestamp));

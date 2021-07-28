@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import MapNodes from "./MapNodes";
 import "../css/TXs.css";
-import generateTXs from "../helpers/generateTXs";
 import { TXVizContext } from "../context/TXVizContext";
 import { formatTimestamp } from "../helpers/processData";
 
@@ -9,8 +8,11 @@ const TXs = (props) => {
   const { setTxVizHash } = useContext(TXVizContext);
 
   const [time, setTime] = useState(Date.now() - 5 * 60000);
+  const [txHashStore, setTxHashStore] = useState([]);
   const [txStore, setTxStore] = useState([]);
   const [listItems, setListItems] = useState([]);
+  const [txHash, setTxHash] = useState([]);
+  const [txs, setTxs] = useState([]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -24,13 +26,17 @@ const TXs = (props) => {
   const initWebsocket = () => {
     ws.onopen = function () {
       console.log("CONNECTED");
-      ws.send("get hash list");
+      ws.send("get tx data");
     };
     ws.onmessage = function (evt) {
-      const newTxs = JSON.parse(evt.data);
+      const newTxList = JSON.parse(evt.data)[0];
+      const newTxs = JSON.parse(evt.data)[1];
+      setTxHashStore((txHashStore) => {
+        return [...newTxList, ...txHashStore];
+      });
       setTxStore((txStore) => {
         return [...newTxs, ...txStore];
-      });
+      })
     };
     ws.onerror = function (evt) {
       console.log("ERROR:" + evt);
@@ -53,8 +59,8 @@ const TXs = (props) => {
   }, [time]);
 
   function updateList() {
-    while (txStore.length > 0 && txStore.slice(-1)[0].min_timestamp < time) {
-      const tx = txStore.pop();
+    while (txHashStore.length > 0 && txHashStore.slice(-1)[0].min_timestamp < time) {
+      const tx = txHashStore.pop();
       const txHash = tx.tx_hash;
       const formattedTime = formatTimestamp(tx.min_timestamp);
 
@@ -71,24 +77,29 @@ const TXs = (props) => {
       setListItems((listItems) => {
         return [listItem, ...listItems].slice(0, 6);
       });
+
+      setTxHash((txHash) => {
+        const temp = [tx, ...txHash];
+        return temp.filter((tx) => time - tx.min_timestamp < 5000);
+      });
+    }
+
+    while (txStore.length > 0 && txStore.slice(-1)[0].unix_timestamp < time) {
+      const tx = txStore.pop();
+      setTxs((txs) => {
+        const temp = [tx, ...txs];
+        return temp.filter((tx) => time - tx.unix_timestamp < 5000);
+      });
     }
   }
 
 
 
 
-  // const [txsInfo, setTxsInfo] = useState([]);
-  // const [currTx, setCurrTx] = useState();
-
-
   // const initWebsocket = () => {
 
   //   ws.onmessage = function (evt) {
   //     const newTxs = JSON.parse(evt.data);
-  //     // console.log(newTxs);
-  //     setTxStore((txStore) => {
-  //       return [...newTxs, ...txStore];
-  //     });
 
   //     // setTxsInfo((txsInfo) => {
   //     //   const temp = [...txsInfo, txInfo];
@@ -97,15 +108,6 @@ const TXs = (props) => {
 
   //     // const txHash = JSON.parse(evt.data).hash;
   //     // const timestamp = Number(JSON.parse(evt.data).timestamp);
-
-  //     // const newTx = new Map([[txHash, timestamp]]);
-  //     // setTxList((txList) => {
-  //     //   if (!txList.has(txHash)) {
-  //     //     return new Map([...newTx, ...txList].slice(0, 6));
-  //     //   } else {
-  //     //     return txList;
-  //     //   }
-  //     // });
   //   };
 
   // };
@@ -120,13 +122,12 @@ const TXs = (props) => {
   //   });
   // }
 
-  
 
   return (
     <div style={props.centerStyle}>
-      {/* <div>
-        <MapNodes txsInfo={txsInfo} scaleInfo={props} />
-      </div> */}
+      <div>
+        <MapNodes txNum={txHash.length} txs={txs} scaleInfo={props} />
+      </div>
       <div id="tx-list">
         <ul>{listItems}</ul>
       </div>
