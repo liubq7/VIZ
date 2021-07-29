@@ -4,12 +4,15 @@ import './css/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { TXVizContextProvider } from './context/TXVizContext';
+import { NodesContextProvider } from './context/NodesContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <TXVizContextProvider>
-      <App />
-    </TXVizContextProvider>
+    <NodesContextProvider>
+      <TXVizContextProvider>
+        <App />
+      </TXVizContextProvider>
+    </NodesContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

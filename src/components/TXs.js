@@ -94,35 +94,6 @@ const TXs = (props) => {
   }
 
 
-
-
-  // const initWebsocket = () => {
-
-  //   ws.onmessage = function (evt) {
-  //     const newTxs = JSON.parse(evt.data);
-
-  //     // setTxsInfo((txsInfo) => {
-  //     //   const temp = [...txsInfo, txInfo];
-  //     //   return temp.filter((tx) => currTime - tx.timestamp < 10000);
-  //     // });
-
-  //     // const txHash = JSON.parse(evt.data).hash;
-  //     // const timestamp = Number(JSON.parse(evt.data).timestamp);
-  //   };
-
-  // };
-
-
-  // function update() {
-  //   const txInfo = currTx;
-  //   const currTime = Date.now();
-  //   setTxsInfo((txsInfo) => {
-  //     const temp = [...txsInfo, txInfo];
-  //     return temp.filter((tx) => currTime - tx.timestamp < 10000);
-  //   });
-  // }
-
-
   return (
     <div style={props.centerStyle}>
       <div>

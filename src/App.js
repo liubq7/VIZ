@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./css/App.css";
 import TXs from "./components/TXs";
 import WorldMap from "./components/WorldMap";
@@ -10,9 +10,25 @@ import decorationTop from "./images/decorationTop.svg";
 import decorationBottom from "./images/decorationBottom.svg";
 import legend from "./images/legend.svg";
 import { TXVizContext } from "./context/TXVizContext";
+import { NodesContext } from "./context/NodesContext";
+import DataFinder from "./apis/DataFinder";
 
 function App() {
   const { txVizHash } = useContext(TXVizContext);
+  const {nodesGeoData, setNodesGeoData} = useContext(NodesContext);
+
+  useEffect(() => {
+    const fetchNodesGeoData = async () => {
+      try {
+        const response = await DataFinder.get("/nodes");
+        setNodesGeoData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchNodesGeoData();
+  }, [])
 
   const { innerWidth, innerHeight } = useWindowDimensions();
   let width, height;
@@ -57,10 +73,10 @@ function App() {
       </div>
 
       <div id="txs">
-        <TXs projection={projection} centerStyle={centerStyle} />
+        {nodesGeoData == null ? null : <TXs projection={projection} centerStyle={centerStyle} />}
       </div>
 
-      <div id="tx-viz">{txVizHash === "" ? null : <TXViz />}</div>
+      <div id="tx-viz">{txVizHash === "" || nodesGeoData == null ? null : <TXViz />}</div>
 
       <div id="bottom-line">
         <svg style={{ width: width * 0.6, height: "2px" }}>

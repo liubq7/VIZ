@@ -6,7 +6,7 @@ import cancel from "../images/cancel.svg";
 import playSvg from "../images/play.svg";
 import pauseSvg from "../images/pause.svg";
 import { TXVizContext } from "../context/TXVizContext";
-import TxFinder from "../apis/TXFinder";
+import DataFinder from "../apis/DataFinder";
 
 const TXViz = () => {
   const width = 670;
@@ -25,7 +25,7 @@ const TXViz = () => {
   useEffect(() => {
     const fetchTxVizData = async () => {
       try {
-        const response = await TxFinder.get(`/${txVizHash}`);
+        const response = await DataFinder.get(`/txs/${txVizHash}`);
         setTxVizData(response.data);
         setStartTime(Number(response.data[0].unix_timestamp));
         setEndTime(Number(response.data.slice(-1)[0].unix_timestamp));
