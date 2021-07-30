@@ -38,12 +38,6 @@ const TXViz = () => {
     fetchTxVizData();
   }, [txVizHash]);
 
-  // const startTime = txVizData[0].unix_timestamp;
-  // const endTime = txVizData.slice(-1)[0].unix_timestamp;
-
-  // const startTime = 1622463474248;
-  // const endTime = 1622463476577;
-
   const inputRef = useRef();
   const activeRangeColor = "#18EFB1";
   const rangeBackgroundColor = "#E6E6E6";

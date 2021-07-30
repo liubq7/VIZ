@@ -5,7 +5,7 @@ export const generateLinks = (txVizData, txVizHash) => {
   let links = [];
   for (let i = 1; i < txVizData.length; i++) {
     let prevNode = i;
-    while (txVizData[prevNode].unix_timestamp == txVizData[i].unix_timestamp) {
+    while (txVizData[prevNode].unix_timestamp === txVizData[i].unix_timestamp) {
       prevNode = Math.floor(Math.pow(rng(), 0.5) * i);
     }
     links.push({
