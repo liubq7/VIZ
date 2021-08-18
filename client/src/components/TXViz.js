@@ -42,6 +42,7 @@ const TXViz = () => {
   const inputRef = useRef();
   const activeRangeColor = "#18EFB1";
   const rangeBackgroundColor = "#E6E6E6";
+  // TODO: range color bug
   const setRangeColor = (value) => {
     const progress = ((value - startTime) / (endTime - startTime)) * 100 + "%";
     inputRef.current.style.background = `linear-gradient(90deg, ${activeRangeColor} 0% ${progress}, ${rangeBackgroundColor} ${progress} 100%)`;

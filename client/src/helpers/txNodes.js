@@ -3,10 +3,9 @@ import * as d3 from "d3";
 // TODO: circumstance of more than 100 points
 const R = 2.5;
 const SPACING = 15;
-// const NODES_NUM = 100;
 
 export const initializeNodes = (translateX, translateY, nodesNum) => {
-  // const numNodes = NODES_NUM;
+
   let nodes = d3.range(nodesNum).map(function () {
     return { radius: R };
   });
@@ -17,12 +16,12 @@ export const initializeNodes = (translateX, translateY, nodesNum) => {
   for (let i = 0, n = nodes.length, node; i < n; ++i) {
     node = nodes[i];
     node.index = i;
-    // if (isNaN(node.x) || isNaN(node.y)) {
+
     const radius = initialRadius * Math.sqrt(0.5 + i),
       angle = i * initialAngle;
     node.x = radius * Math.cos(angle);
     node.y = radius * Math.sin(angle);
-    // }
+
     node.id = "node" + i;
   }
 
@@ -69,13 +68,9 @@ export const drawInitNodes = (svg, nodes) => {
       return d.id;
     })
     .attr("data-tip", function (d) {
-      // TODO: return coordinate
+      // TODO: return node's coordinate
       return d.id;
     })
-    // .append("svg:title")
-    // .text(function(d) {
-    //   return d.id;
-    // })
     .style("fill", "#E6E6E6");
 
   return svg.node();
