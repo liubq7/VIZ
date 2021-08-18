@@ -68,6 +68,8 @@ function App() {
       <div id="decoration-bottom">
         <img src={decorationBottom} width={width * 0.1} alt="" />
       </div>
+      
+      {/* TODO: separate component */}
       <div id="legend">
         <img src={legend} width={width * 0.04} alt="" />
       </div>

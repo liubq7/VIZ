@@ -1,5 +1,6 @@
 import * as d3 from "d3";
 
+// TODO: circumstance of more than 100 points
 const R = 2.5;
 const SPACING = 15;
 // const NODES_NUM = 100;
@@ -68,6 +69,7 @@ export const drawInitNodes = (svg, nodes) => {
       return d.id;
     })
     .attr("data-tip", function (d) {
+      // TODO: return coordinate
       return d.id;
     })
     // .append("svg:title")

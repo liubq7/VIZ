@@ -9,6 +9,7 @@ import { TXVizContext } from "../context/TXVizContext";
 import DataFinder from "../apis/DataFinder";
 
 const TXViz = () => {
+  // TODO: loading page
   const width = 670;
   const height = 380;
 
