@@ -6,6 +6,7 @@ const express = require("express");
 const db = require("./db");
 const cors = require("cors");
 const WebSocket = require("ws");
+const geoip = require('geoip-lite');
 
 const app = express();
 
@@ -16,18 +17,12 @@ const WebSocketServer = WebSocket.Server;
 const wss = new WebSocketServer({ port: 8080 });
 
 wss.on("connection", function connection(ws) {
-  ws.on("message", function incoming(message) {
-    console.log("received: %s", message);
-
-    if (message === "get tx data") {
-      let t = Date.now() - 5 * 60000;
-      sendTxData(ws, t);
-      setInterval(function () {
-        t += 30000;
-        sendTxData(ws, t);
-      }, 30000);
-    }
-  });
+  let t = Date.now() - 5 * 60000;
+  sendTxData(ws, t);
+  setInterval(function () {
+    t += 30000;
+    sendTxData(ws, t);
+  }, 30000);
 });
 
 const sendTxData = async (ws, t) => {
@@ -46,7 +41,7 @@ const sendTxData = async (ws, t) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // add received txs to db
 app.post("/txs", async (req, res) => {
@@ -55,13 +50,43 @@ app.post("/txs", async (req, res) => {
 
   try {
     await db.query(
-      "INSERT INTO txs (node_id, tx_hash, unix_timestamp) SELECT node_id, tx_hash, unix_timestamp FROM jsonb_to_recordset($1::jsonb) AS t (node_id INT, tx_hash CHAR(66), unix_timestamp BIGINT)",
+      "INSERT INTO txs (node_id, tx_hash, unix_timestamp) SELECT node_id, tx_hash, unix_timestamp FROM jsonb_to_recordset($1::jsonb) AS t (node_id VARCHAR, tx_hash CHAR(66), unix_timestamp BIGINT)",
       [txs]
     );
   } catch (error) {
     console.log(error);
   }
-  
+
+  res.json("ok");
+});
+
+app.post("/nodes", async (req, res) => {
+  console.log(req.body);
+  const nodeID = req.body.node_id;
+
+  try {
+    const exists = await db.query(
+      "SELECT EXISTS (SELECT * FROM nodes WHERE node_id = $1)",
+      [nodeID]
+    );
+    console.log(exists.rows[0].exists)
+    if (!exists.rows[0].exists) {
+      const ip = req.socket.remoteAddress;
+      const geo = geoip.lookup(ip);
+      
+      try {
+        await db.query(
+          "INSERT INTO nodes (node_id, longitude, latitude) VALUES ($1, $2, $3)",
+          [nodeID, geo.ll[1], geo.ll[0]]
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    } 
+  } catch (error) {
+    console.log(error);
+  }
+
   res.json("ok")
 });
 
@@ -88,7 +113,7 @@ app.get("/nodes", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-})
+});
 
 const port = process.env.PORT;
 app.listen(port, () => {

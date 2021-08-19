@@ -26,7 +26,6 @@ const TXs = (props) => {
   const initWebsocket = () => {
     ws.onopen = function () {
       console.log("CONNECTED");
-      ws.send("get tx data");
     };
     ws.onmessage = function (evt) {
       const newTxList = JSON.parse(evt.data)[0];
