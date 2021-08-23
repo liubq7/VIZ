@@ -5,6 +5,7 @@ import { geoPath } from "d3-geo";
 import countriesData from "../data/countries.topo.json";
 
 const WorldMap = (props) => {
+  // TODO: hover to show country name
   const worldMap = useRef();
 
   const centerStyle = props.centerStyle;

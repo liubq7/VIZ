@@ -17,17 +17,25 @@ const WebSocketServer = WebSocket.Server;
 const wss = new WebSocketServer({ port: 8080 });
 
 wss.on("connection", function connection(ws) {
-  let t = Date.now() - 5 * 60000;
-  sendTxData(ws, t);
-  setInterval(function () {
-    t += 30000;
-    sendTxData(ws, t);
-  }, 30000);
+  // TODO: send message as soon as connect
+  ws.on("message", function incoming(message) {
+    console.log("received: %s", message);
+
+    if (message === "get tx data") {
+      let t = Date.now() - 5 * 60000;
+      sendTxData(ws, t);
+      setInterval(function () {
+        t += 30000;
+        sendTxData(ws, t);
+      }, 30000);
+    }
+  });
 });
 
 const sendTxData = async (ws, t) => {
   const t1 = t;
   const t2 = t1 + 30000;
+  console.log(t1, t2)
   try {
     const txList = await db.query(
       "SELECT tx_hash, min_timestamp FROM (SELECT tx_hash, MIN(unix_timestamp) AS min_timestamp FROM txs GROUP BY tx_hash) t WHERE min_timestamp >= $1 AND min_timestamp < $2 ORDER BY min_timestamp DESC",
@@ -45,7 +53,7 @@ const sendTxData = async (ws, t) => {
 
 // add received txs to db
 app.post("/txs", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const txs = JSON.stringify(req.body);
 
   try {
@@ -61,7 +69,7 @@ app.post("/txs", async (req, res) => {
 });
 
 app.post("/nodes", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const nodeID = req.body.node_id;
 
   try {

@@ -22,10 +22,11 @@ const TXs = (props) => {
   }, []);
 
   const ws = new WebSocket("ws://localhost:8080");
-
+  // TODO: ws connection fail: insufficient resources
   const initWebsocket = () => {
     ws.onopen = function () {
       console.log("CONNECTED");
+      ws.send("get tx data");
     };
     ws.onmessage = function (evt) {
       const newTxList = JSON.parse(evt.data)[0];
@@ -96,7 +97,7 @@ const TXs = (props) => {
   return (
     <div style={props.centerStyle}>
       <div>
-        <MapNodes txNum={txHash.length} txs={txs} scaleInfo={props} />
+        {txs.length === 0 ? null : <MapNodes txNum={txHash.length} txs={txs} scaleInfo={props} />}
       </div>
       <div id="tx-list">
         <ul>{listItems}</ul>
