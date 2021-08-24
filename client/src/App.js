@@ -15,7 +15,7 @@ import DataFinder from "./apis/DataFinder";
 
 function App() {
   const { txVizHash } = useContext(TXVizContext);
-  const {nodesGeoData, setNodesGeoData} = useContext(NodesContext);
+  const { nodesGeoData, setNodesGeoData } = useContext(NodesContext);
 
   useEffect(() => {
     const fetchNodesGeoData = async () => {
@@ -25,10 +25,10 @@ function App() {
       } catch (error) {
         console.log(error);
       }
-    }
+    };
 
     fetchNodesGeoData();
-  }, [])
+  }, []);
 
   const { innerWidth, innerHeight } = useWindowDimensions();
   let width, height;
@@ -62,22 +62,27 @@ function App() {
       <div id="cryptape">
         <h1>CRYPTAPE</h1>
       </div>
-      <div id="decoration-top">
-        <img src={decorationTop} width={width * 0.1} alt="" />
-      </div>
-      <div id="decoration-bottom">
-        <img src={decorationBottom} width={width * 0.1} alt="" />
-      </div>
-      
-      <div id="legend">
-        <img src={legend} width="48px" alt="" />
+      <div id="decoration">
+        <div id="decoration-top">
+          <img src={decorationTop} width={width * 0.1} alt="" />
+        </div>
+        <div id="decoration-bottom">
+          <img src={decorationBottom} width={width * 0.1} alt="" />
+        </div>
+        <div id="legend">
+          <img src={legend} width="48px" alt="" />
+        </div>
       </div>
 
       <div id="txs">
-        {nodesGeoData == null ? null : <TXs projection={projection} centerStyle={centerStyle} />}
+        {nodesGeoData == null ? null : (
+          <TXs projection={projection} centerStyle={centerStyle} />
+        )}
       </div>
 
-      <div id="tx-viz">{txVizHash === "" || nodesGeoData == null ? null : <TXViz />}</div>
+      <div id="tx-viz">
+        {txVizHash === "" || nodesGeoData == null ? null : <TXViz />}
+      </div>
 
       <div id="bottom-line">
         <svg style={{ width: width * 0.6, height: "2px" }}>

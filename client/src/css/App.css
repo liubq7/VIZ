@@ -54,6 +54,10 @@ h1 {
   line-height: 0.75em;
 }
 
+#txs, #decoration {
+  pointer-events: none;
+}
+
 #search-box {
   position: absolute;
   top: 0;

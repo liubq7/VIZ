@@ -1,11 +1,11 @@
 import * as d3 from "d3";
 
-// TODO: circumstance of more than 100 points
+// TODO: circumstance of more than 100 points and one point
 const R = 2.5;
 const SPACING = 15;
 
-export const initializeNodes = (translateX, translateY, nodesNum) => {
-
+export const initializeNodes = (translateX, translateY, txVizData, nodesGeoMap) => {
+  const nodesNum = txVizData.length;
   let nodes = d3.range(nodesNum).map(function () {
     return { radius: R };
   });
@@ -13,7 +13,7 @@ export const initializeNodes = (translateX, translateY, nodesNum) => {
   const initialRadius = SPACING,
     initialAngle = Math.PI * (3 - Math.sqrt(5));
 
-  for (let i = 0, n = nodes.length, node; i < n; ++i) {
+  for (let i = 0, n = nodesNum, node; i < n; ++i) {
     node = nodes[i];
     node.index = i;
 
@@ -22,7 +22,8 @@ export const initializeNodes = (translateX, translateY, nodesNum) => {
     node.x = radius * Math.cos(angle);
     node.y = radius * Math.sin(angle);
 
-    node.id = "node" + i;
+    node.id = txVizData[i].node_id;
+    node.coord = nodesGeoMap.get(node.id);
   }
 
   function center(x, y) {
@@ -49,6 +50,37 @@ export const initializeNodes = (translateX, translateY, nodesNum) => {
   return nodes;
 };
 
+export const mapNodesGeoData = (nodesGeoData) => {
+  let m = new Map();
+  for (let i in nodesGeoData) {
+    const node = nodesGeoData[i];
+    const nodeID = node.node_id;
+    const lng = node.longitude;
+    const lat = node.latitude;
+    m.set(nodeID, convertDMS(lat, lng));
+  }
+  return m;
+}
+
+function toDegreesAndMinutes(coordinate) {
+  const absolute = Math.abs(coordinate);
+  const degrees = Math.floor(absolute);
+  const minutesNotTruncated = (absolute - degrees) * 60;
+  const minutes = Math.floor(minutesNotTruncated);
+
+  return degrees + "°" + minutes;
+}
+
+function convertDMS(lat, lng) {
+  const latitude = toDegreesAndMinutes(lat);
+  const latitudeCardinal = lat >= 0 ? "N" : "S";
+
+  const longitude = toDegreesAndMinutes(lng);
+  const longitudeCardinal = lng >= 0 ? "E" : "W";
+
+  return [latitude + " " + latitudeCardinal, longitude + " " + longitudeCardinal];
+}
+
 export const drawInitNodes = (svg, nodes) => {
   svg
     .selectAll("circle")
@@ -64,12 +96,8 @@ export const drawInitNodes = (svg, nodes) => {
     .attr("cy", function (d) {
       return d.y;
     })
-    .attr("id", function (d) {
-      return d.id;
-    })
     .attr("data-tip", function (d) {
-      // TODO: return node's coordinate
-      return d.id;
+      return d.coord;
     })
     .style("fill", "#E6E6E6");
 
@@ -89,7 +117,7 @@ export const drawLinkedNodes = (svg, nodes, nodesData, linksData) => {
       return nodes[d].y;
     })
     .attr("data-tip", function (d) {
-      return nodes[d].id;
+      return nodes[d].coord;
     })
     .style("fill", "#18EFB1");
   p.exit().remove();
