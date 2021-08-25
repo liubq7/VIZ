@@ -4,6 +4,7 @@ import * as topojson from "topojson";
 import { geoPath } from "d3-geo";
 import countriesData from "../data/countries.topo.json";
 import ReactTooltip from "react-tooltip";
+import "../css/WorldMap.css";
 
 const WorldMap = (props) => {
   const worldMap = useRef();

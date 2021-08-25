@@ -16,8 +16,8 @@ const TXs = (props) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime((time) => time + 1000);
-    }, 1000);
+      setTime((time) => time + 300);
+    }, 300);
     return () => clearInterval(timer);
   }, []);
 
