@@ -81,6 +81,7 @@ function convertDMS(lat, lng) {
   return [latitude + " " + latitudeCardinal, longitude + " " + longitudeCardinal];
 }
 
+// TODO: can't receive data-tip
 export const drawInitNodes = (svg, nodes) => {
   svg
     .selectAll("circle")

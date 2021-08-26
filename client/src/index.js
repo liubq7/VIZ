@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './css/index.css';
-import App from './App';
-import { TXVizContextProvider } from './context/TXVizContext';
-import { NodesContextProvider } from './context/NodesContext';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./css/index.css";
+import App from "./App";
+import { TXVizContextProvider } from "./context/TXVizContext";
+import { NodesContextProvider } from "./context/NodesContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,5 +13,5 @@ ReactDOM.render(
       </TXVizContextProvider>
     </NodesContextProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

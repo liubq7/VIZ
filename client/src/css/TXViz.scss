@@ -56,6 +56,20 @@ $margin-inner: 22px;
   backdrop-filter: blur(4px);
 }
 
+#loader, #not-found {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#not-found {
+  color: #18efb1;
+  font-size: 15px;
+}
+
 #tx-nodes {
   position: absolute;
   top: 0;

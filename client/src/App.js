@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./css/App.css";
 import TXs from "./components/TXs";
 import WorldMap from "./components/WorldMap";
@@ -12,10 +12,13 @@ import legend from "./images/legend.svg";
 import { TXVizContext } from "./context/TXVizContext";
 import { NodesContext } from "./context/NodesContext";
 import DataFinder from "./apis/DataFinder";
+import Loader from "./components/Loader";
 
 function App() {
   const { txVizHash } = useContext(TXVizContext);
   const { nodesGeoData, setNodesGeoData } = useContext(NodesContext);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchNodesGeoData = async () => {
@@ -74,9 +77,13 @@ function App() {
         </div>
       </div>
 
+      <div id="loader">
+        {isLoading ? <Loader /> : null}
+      </div>
+
       <div id="txs">
         {nodesGeoData == null ? null : (
-          <TXs projection={projection} centerStyle={centerStyle} />
+          <TXs projection={projection} centerStyle={centerStyle} setIsLoading={setIsLoading} />
         )}
       </div>
 

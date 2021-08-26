@@ -4,7 +4,7 @@ export const TXVizContext = createContext();
 
 export const TXVizContextProvider = (props) => {
   const [txVizHash, setTxVizHash] = useState("");
-  const [txVizData, setTxVizData] = useState([]);
+  const [txVizData, setTxVizData] = useState();
 
   return (
     <TXVizContext.Provider

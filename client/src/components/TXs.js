@@ -7,6 +7,8 @@ import { formatTimestamp } from "../helpers/processData";
 const TXs = (props) => {
   const { setTxVizHash } = useContext(TXVizContext);
 
+  const setIsLoading = props.setIsLoading;
+
   const [time, setTime] = useState(Date.now() - 5 * 60000);
   const [txHashStore, setTxHashStore] = useState([]);
   const [txStore, setTxStore] = useState([]);
@@ -22,7 +24,7 @@ const TXs = (props) => {
   }, []);
 
   const ws = new WebSocket("ws://localhost:8080");
-  // TODO: ws connection fail: insufficient resources
+  // TODO: ws connection failed: insufficient resources
   const initWebsocket = () => {
     ws.onopen = function () {
       console.log("CONNECTED");
@@ -93,6 +95,11 @@ const TXs = (props) => {
     }
   }
 
+  useEffect(() => {
+    if (txHash.length > 0) {
+      setIsLoading(false);
+    }
+  }, [txHash.length])
 
   return (
     <div style={props.centerStyle}>
