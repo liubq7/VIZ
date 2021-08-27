@@ -13,10 +13,11 @@ import { TXVizContext } from "./context/TXVizContext";
 import { NodesContext } from "./context/NodesContext";
 import DataFinder from "./apis/DataFinder";
 import Loader from "./components/Loader";
+import { mapNodesGeoData } from "./helpers/processData";
 
 function App() {
   const { txVizHash } = useContext(TXVizContext);
-  const { nodesGeoData, setNodesGeoData } = useContext(NodesContext);
+  const { nodesGeoData, setNodesGeoData, nodesGeoMap, setNodesGeoMap } = useContext(NodesContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,6 +26,7 @@ function App() {
       try {
         const response = await DataFinder.get("/nodes");
         setNodesGeoData(response.data);
+        setNodesGeoMap(mapNodesGeoData(response.data));
       } catch (error) {
         console.log(error);
       }
@@ -88,7 +90,7 @@ function App() {
       </div>
 
       <div id="tx-viz">
-        {txVizHash === "" || nodesGeoData == null ? null : <TXViz />}
+        {txVizHash === "" || nodesGeoMap.length === 0 ? null : <TXViz />}
       </div>
 
       <div id="bottom-line">

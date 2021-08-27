@@ -1,5 +1,36 @@
 import seedrandom from "seedrandom";
 
+export const mapNodesGeoData = (nodesGeoData) => {
+  let m = new Map();
+  for (let i in nodesGeoData) {
+    const node = nodesGeoData[i];
+    const nodeID = node.node_id;
+    const lng = node.longitude;
+    const lat = node.latitude;
+    m.set(nodeID, convertDMS(lat, lng));
+  }
+  return m;
+}
+
+function toDegreesAndMinutes(coordinate) {
+  const absolute = Math.abs(coordinate);
+  const degrees = Math.floor(absolute);
+  const minutesNotTruncated = (absolute - degrees) * 60;
+  const minutes = Math.floor(minutesNotTruncated);
+
+  return degrees + "°" + minutes;
+}
+
+function convertDMS(lat, lng) {
+  const latitude = toDegreesAndMinutes(lat);
+  const latitudeCardinal = lat >= 0 ? "N" : "S";
+
+  const longitude = toDegreesAndMinutes(lng);
+  const longitudeCardinal = lng >= 0 ? "E" : "W";
+
+  return [latitude + " " + latitudeCardinal, longitude + " " + longitudeCardinal];
+}
+
 export const generateLinks = (txVizData, txVizHash) => {
   const rng = seedrandom(txVizHash); // using tx's hash as seed
   let links = [];

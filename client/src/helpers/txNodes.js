@@ -50,38 +50,6 @@ export const initializeNodes = (translateX, translateY, txVizData, nodesGeoMap) 
   return nodes;
 };
 
-export const mapNodesGeoData = (nodesGeoData) => {
-  let m = new Map();
-  for (let i in nodesGeoData) {
-    const node = nodesGeoData[i];
-    const nodeID = node.node_id;
-    const lng = node.longitude;
-    const lat = node.latitude;
-    m.set(nodeID, convertDMS(lat, lng));
-  }
-  return m;
-}
-
-function toDegreesAndMinutes(coordinate) {
-  const absolute = Math.abs(coordinate);
-  const degrees = Math.floor(absolute);
-  const minutesNotTruncated = (absolute - degrees) * 60;
-  const minutes = Math.floor(minutesNotTruncated);
-
-  return degrees + "°" + minutes;
-}
-
-function convertDMS(lat, lng) {
-  const latitude = toDegreesAndMinutes(lat);
-  const latitudeCardinal = lat >= 0 ? "N" : "S";
-
-  const longitude = toDegreesAndMinutes(lng);
-  const longitudeCardinal = lng >= 0 ? "E" : "W";
-
-  return [latitude + " " + latitudeCardinal, longitude + " " + longitudeCardinal];
-}
-
-// TODO: can't receive data-tip
 export const drawInitNodes = (svg, nodes) => {
   svg
     .selectAll("circle")

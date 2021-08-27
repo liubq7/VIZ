@@ -16,8 +16,8 @@ const TXViz = () => {
   const { txVizHash, setTxVizHash } = useContext(TXVizContext);
   const { txVizData, setTxVizData } = useContext(TXVizContext);
 
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
 
   const [rangeVal, setrangeVal] = useState(startTime);
   const [play, setPlay] = useState(false);

@@ -4,7 +4,6 @@ import {
   initializeNodes,
   drawInitNodes,
   drawLinkedNodes,
-  mapNodesGeoData,
 } from "../helpers/txNodes";
 import {
   generateLinks,
@@ -21,19 +20,17 @@ const TXNodes = (props) => {
   const height = props.height - 40;
 
   const {txVizHash, txVizData} = useContext(TXVizContext);
-  const {nodesGeoData} = useContext(NodesContext);
+  const {nodesGeoMap} = useContext(NodesContext);
 
   const [nodes, setNodes] = useState();
   const [links, setLinks] = useState();
   const [nodeData, setNodeData] = useState();
   const [linkData, setLinkData] = useState();
-  const [nodesGeoMap, setNodesGeoMap] = useState(new Map());
 
   useEffect(() => {
-    setNodesGeoMap(mapNodesGeoData(nodesGeoData));
     setNodes(initializeNodes(width / 2, height / 2, txVizData, nodesGeoMap));
     setLinks(generateLinks(txVizData, txVizHash));
-  }, [txVizHash, txVizData]);
+  }, [txVizHash, txVizData, nodesGeoMap]);
 
   useEffect(() => {
     setNodeData(filterNodeData(props.time, txVizData));

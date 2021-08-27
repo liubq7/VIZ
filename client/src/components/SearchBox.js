@@ -3,7 +3,6 @@ import { TXVizContext } from "../context/TXVizContext";
 import "../css/SearchBox.scss";
 
 const SearchBox = () => {
-  // TODO: A component is changing an uncontrolled input to be controlled.
   const [isOpen, setIsOpen] = useState(false);
   const [searchTX, setSearchTX] = useState("");
 
