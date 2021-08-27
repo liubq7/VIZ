@@ -10,7 +10,6 @@ import DataFinder from "../apis/DataFinder";
 import Loader from "./Loader";
 
 const TXViz = () => {
-
   const width = 670;
   const height = 380;
 
@@ -24,7 +23,9 @@ const TXViz = () => {
   const [play, setPlay] = useState(false);
   const [btnSvg, setBtnSvg] = useState(playSvg);
 
-  // TODO: two nodes have same timestamp
+  const [isValid, setIsValid] = useState(true);
+  const re = /^0x[0-9a-f]{64}$/;
+
   useEffect(() => {
     setTxVizData(null);
 
@@ -43,13 +44,18 @@ const TXViz = () => {
       }
     };
 
-    fetchTxVizData();
+    if (re.test(txVizHash)) {
+      setIsValid(true);
+      fetchTxVizData();
+    } else {
+      setIsValid(false);
+    }
   }, [txVizHash]);
 
   const inputRef = useRef();
   const activeRangeColor = "#18EFB1";
   const rangeBackgroundColor = "#E6E6E6";
-  // TODO: range color bug
+
   const setRangeColor = (value) => {
     const progress = ((value - startTime) / (endTime - startTime)) * 100 + "%";
     inputRef.current.style.background = `linear-gradient(90deg, ${activeRangeColor} 0% ${progress}, ${rangeBackgroundColor} ${progress} 100%)`;
@@ -75,58 +81,9 @@ const TXViz = () => {
     }
   }, [rangeVal, play]);
 
-  // TODO: useeffect
   const cornerDecorations = [...Array(4)].map((e, i) => (
     <img id={"corner" + i} src={corner} alt="" key={i} />
   ));
-
-  let result;
-  if (txVizData == null) {
-    result = (
-      <div id="loader">
-        <Loader />
-      </div>
-    );
-  } else if (txVizData.length === 0) {
-    result = <p id="not-found">No results found :(</p>;
-  } else {
-    result = (
-      <Fragment>
-        <div id="tx-nodes">
-          <TXNodes time={rangeVal} width={width} height={height} />
-        </div>
-
-        <div id="timeline">
-          <p className="timeline-time">{rangeVal}</p>
-          <input
-            ref={inputRef}
-            type="range"
-            className="timeline-slider"
-            min={startTime}
-            max={endTime}
-            value={rangeVal}
-            onChange={handleChange}
-          />
-          <img
-            id="play-button"
-            onClick={() => {
-              if (rangeVal == endTime) {
-                setrangeVal(startTime);
-              }
-              if (play) {
-                setBtnSvg(playSvg);
-              } else {
-                setBtnSvg(pauseSvg);
-              }
-              setPlay(!play);
-            }}
-            src={btnSvg}
-            alt="play button"
-          />
-        </div>
-      </Fragment>
-    );
-  }
 
   return (
     <div style={{ width, height }}>
@@ -144,7 +101,64 @@ const TXViz = () => {
 
       <p id="tx-hash">{txVizHash}</p>
 
-      {result}
+      {(() => {
+        if (!isValid) {
+          return (
+            <p id="invalid">
+              Invalid params: expected a 0x-prefixed hex string with 64 digits.
+            </p>
+          );
+        } else if (txVizData == null) {
+          return (
+            <div id="loader">
+              <Loader />
+            </div>
+          );
+        } else if (txVizData.length === 0) {
+          return <p id="not-found">No results found :(</p>;
+        } else {
+          return (
+            <Fragment>
+              <div id="tx-nodes">
+                <TXNodes time={rangeVal} width={width} height={height} />
+              </div>
+
+              <div id="timeline">
+                <p className="timeline-time">{rangeVal}</p>
+                {startTime === endTime ? null : (
+                  <Fragment>
+                    <input
+                      ref={inputRef}
+                      type="range"
+                      className="timeline-slider"
+                      min={startTime}
+                      max={endTime}
+                      value={rangeVal}
+                      onChange={handleChange}
+                    />
+                    <img
+                      id="play-button"
+                      onClick={() => {
+                        if (rangeVal == endTime) {
+                          setrangeVal(startTime);
+                        }
+                        if (play) {
+                          setBtnSvg(playSvg);
+                        } else {
+                          setBtnSvg(pauseSvg);
+                        }
+                        setPlay(!play);
+                      }}
+                      src={btnSvg}
+                      alt="play button"
+                    />
+                  </Fragment>
+                )}
+              </div>
+            </Fragment>
+          );
+        }
+      })()}
 
       <img
         id="cancel-button"

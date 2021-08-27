@@ -55,7 +55,8 @@ h1 {
 }
 
 #txs,
-#decoration {
+#decoration,
+#loader {
   pointer-events: none;
 }
 

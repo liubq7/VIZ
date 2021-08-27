@@ -37,10 +37,10 @@ CREATE TABLE txs (
     unix_timestamp BIGINT NOT NULL CHECK (unix_timestamp >= 0)
 );
 
-INSERT INTO txs (node_id, tx_hash, unix_timestamp) VALUES ('QmXwUgF48ULy6hkgfqrEwEfuHW7WyWyWauueRDAYQHNDfN', '0x84344d0da7a3b7706ed8375d7f8ba9bf95a7cfb7ac417aef26c5f9117b0ac875', 1627032275667);
+INSERT INTO txs (node_id, tx_hash, unix_timestamp) VALUES ('QmXwUgF48ULy6hkgfqrEwEfuHW7WyWyWauueRDAYQHNDfN', '0x5f259938700501787fea17eece99a29a70f39af974b1b33f016ea5ad6e6e8978', 1629962594966);
 
 -- ascending
-SELECT * FROM txs WHERE tx_hash = '0x84344d0da7a3b7706ed8375d7f8ba9bf95a7cfb7ac417aef26c5f9117b0ac875' ORDER BY unix_timestamp;
+SELECT * FROM txs WHERE tx_hash = '0xadb8fc5b142c5a8a87861c40baeb6148aafb898d90b8f01b9db1c5a37571c989' ORDER BY unix_timestamp;
 
 -- descending
 SELECT tx_hash, min_timestamp FROM (SELECT tx_hash, MIN(unix_timestamp) AS min_timestamp FROM txs GROUP BY tx_hash) t WHERE min_timestamp >= 1627032275667 AND min_timestamp < 1627113033163 ORDER BY min_timestamp DESC;

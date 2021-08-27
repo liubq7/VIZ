@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-// TODO: circumstance of more than 100 points and one point
+// TODO: circumstance of more than 100 points
 const R = 2.5;
 const SPACING = 15;
 

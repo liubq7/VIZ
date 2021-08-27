@@ -3,7 +3,16 @@ import seedrandom from "seedrandom";
 export const generateLinks = (txVizData, txVizHash) => {
   const rng = seedrandom(txVizHash); // using tx's hash as seed
   let links = [];
-  for (let i = 1; i < txVizData.length; i++) {
+
+  let j = 0;
+  while (j < txVizData.length && txVizData[j].unix_timestamp === txVizData[0].unix_timestamp) {
+    j += 1;
+  }
+  if (j >= txVizData.length) {
+    return links;
+  }
+
+  for (let i = j; i < txVizData.length; i++) {
     let prevNode = i;
     while (txVizData[prevNode].unix_timestamp === txVizData[i].unix_timestamp) {
       prevNode = Math.floor(Math.pow(rng(), 0.5) * i);
