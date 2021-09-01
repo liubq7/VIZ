@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, Fragment, useContext, useState } from "react";
 import * as d3 from "d3";
 import {
-  initializeNodes,
-  drawInitNodes,
-  drawLinkedNodes,
+  initNodes,
+  drawViz,
 } from "../helpers/txNodes";
 import {
   generateLinks,
@@ -28,7 +27,7 @@ const TXNodes = (props) => {
   const [linkData, setLinkData] = useState();
 
   useEffect(() => {
-    setNodes(initializeNodes(width / 2, height / 2, txVizData, nodesGeoMap));
+    setNodes(initNodes(width / 2, height / 2, txVizData, txVizHash, nodesGeoMap));
     setLinks(generateLinks(txVizData, txVizHash));
   }, [txVizHash, txVizData, nodesGeoMap]);
 
@@ -40,8 +39,7 @@ const TXNodes = (props) => {
   useEffect(() => {
     if (nodes) {
       d3.select(vizContainer.current)
-        .call((svg) => drawInitNodes(svg, nodes))
-        .call((svg) => drawLinkedNodes(svg, nodes, nodeData, linkData));
+        .call((svg) => drawViz(svg, nodes, nodeData, linkData));
       ReactTooltip.rebuild();
     }
   }, [nodes, nodeData, linkData]);

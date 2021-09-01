@@ -59,12 +59,10 @@ export const generateLinks = (txVizData, txVizHash) => {
 
 export const filterNodeData = (time, txVizData) => {
   let i = 0;
-  let nodeData = [];
   while (i < txVizData.length && txVizData[i].unix_timestamp <= time) {
-    nodeData.push(i);
     i += 1;
   }
-  return nodeData;
+  return i;
 };
 
 export const filterLinkData = (time, links) => {
