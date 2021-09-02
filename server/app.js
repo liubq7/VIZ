@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 const WebSocketServer = WebSocket.Server;
-const wss = new WebSocketServer({ port: 8080 });
+const wss = new WebSocketServer({ port: 8088 });
 
 wss.on("connection", function connection(ws) {
   // TODO: send message as soon as connect
@@ -51,31 +51,12 @@ const sendTxData = async (ws, t) => {
   }
 };
 
-// add received txs to db
-app.post("/txs", async (req, res) => {
-  // console.log(req.body);
-  const txs = JSON.stringify(req.body);
-
-  try {
-    await db.query(
-      "INSERT INTO txs (node_id, tx_hash, unix_timestamp) SELECT node_id, tx_hash, unix_timestamp FROM jsonb_to_recordset($1::jsonb) AS t (node_id VARCHAR, tx_hash CHAR(66), unix_timestamp BIGINT)",
-      [txs]
-    );
-  } catch (error) {
-    console.log(error);
-  }
-
-  res.json("ok");
-});
-
-app.post("/nodes", async (req, res) => {
-  // console.log(req.body);
-  const nodeID = req.body.node_id;
-
+app.post("/nodes/:node_id/info", async (req, res) => {
+  const {node_id} = req.params;
   try {
     const exists = await db.query(
       "SELECT EXISTS (SELECT * FROM nodes WHERE node_id = $1)",
-      [nodeID]
+      [node_id]
     );
     console.log(exists.rows[0].exists)
     if (!exists.rows[0].exists) {
@@ -85,12 +66,23 @@ app.post("/nodes", async (req, res) => {
       try {
         await db.query(
           "INSERT INTO nodes (node_id, longitude, latitude) VALUES ($1, $2, $3)",
-          [nodeID, geo.ll[1], geo.ll[0]]
+          [node_id, geo.ll[1], geo.ll[0]]
         );
       } catch (error) {
         console.log(error);
       }
     } 
+  } catch (error) {
+    console.log(error);
+  }
+
+  console.log(req.body)
+  const txs = JSON.stringify(req.body);
+  try {
+    await db.query(
+      "INSERT INTO txs (node_id, tx_hash, unix_timestamp) SELECT $1, tx_hash, unix_timestamp FROM jsonb_to_recordset($2::jsonb) AS t (tx_hash CHAR(66), unix_timestamp BIGINT)",
+      [node_id, txs]
+    );
   } catch (error) {
     console.log(error);
   }

@@ -23,7 +23,7 @@ const TXs = (props) => {
     return () => clearInterval(timer);
   }, []);
 
-  const ws = new WebSocket("ws://localhost:8080");
+  const ws = new WebSocket("ws://localhost:8088");
   // TODO: ws connection failed: insufficient resources
   const initWebsocket = () => {
     ws.onopen = function () {
