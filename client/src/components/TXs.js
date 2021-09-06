@@ -4,7 +4,7 @@ import "../css/TXs.css";
 import { TXVizContext } from "../context/TXVizContext";
 import { formatTimestamp } from "../helpers/processData";
 
-const wsURL = process.env.NODE_ENV === "production" ? "ws://localhost:80/ws" : "ws://localhost:8088/ws";
+const wsURL = process.env.NODE_ENV === "production" ? "ws://54.254.68.135/ws" : "ws://localhost:8088/ws";
 
 const TXs = (props) => {
   const { setTxVizHash } = useContext(TXVizContext);
