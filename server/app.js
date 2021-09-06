@@ -51,7 +51,7 @@ const sendTxData = async (ws, t) => {
   }
 };
 
-app.post("/nodes/:node_id/info", async (req, res) => {
+app.post("/api/nodes/:node_id/info", async (req, res) => {
   const {node_id} = req.params;
   try {
     const exists = await db.query(
@@ -91,7 +91,7 @@ app.post("/nodes/:node_id/info", async (req, res) => {
 });
 
 // get all nodes' recieved time about a tx requested by tx hash
-app.get("/txs/:id", async (req, res) => {
+app.get("/api/txs/:id", async (req, res) => {
   console.log(req.params.id);
   const { id } = req.params;
 
@@ -106,7 +106,7 @@ app.get("/txs/:id", async (req, res) => {
   }
 });
 
-app.get("/nodes", async (req, res) => {
+app.get("/api/nodes", async (req, res) => {
   try {
     const nodesGeoData = await db.query("SELECT * FROM nodes");
     res.json(nodesGeoData.rows);
