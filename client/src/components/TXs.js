@@ -4,6 +4,8 @@ import "../css/TXs.css";
 import { TXVizContext } from "../context/TXVizContext";
 import { formatTimestamp } from "../helpers/processData";
 
+const wsURL = process.env.NODE_ENV === "production" ? "/ws" : "ws://localhost:8088/ws";
+
 const TXs = (props) => {
   const { setTxVizHash } = useContext(TXVizContext);
 
@@ -23,7 +25,7 @@ const TXs = (props) => {
     return () => clearInterval(timer);
   }, []);
 
-  const ws = new WebSocket("ws://localhost:8088");
+  const ws = new WebSocket(wsURL);
   // TODO: ws connection failed: insufficient resources
   const initWebsocket = () => {
     ws.onopen = function () {
