@@ -60,7 +60,7 @@ app.post("/api/nodes/:node_id/info", async (req, res) => {
     );
     console.log(exists.rows[0].exists)
     if (!exists.rows[0].exists) {
-      const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+      const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress).split(',')[0].trim();
       console.log(ip);
       const geo = geoip.lookup(ip);
       
