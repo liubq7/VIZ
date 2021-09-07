@@ -35,7 +35,7 @@ wss.on("connection", function connection(ws) {
 const sendTxData = async (ws, t) => {
   const t1 = t;
   const t2 = t1 + 30000;
-  console.log(t1, t2)
+  // console.log(t1, t2)
   try {
     const txList = await db.query(
       "SELECT tx_hash, min_timestamp FROM (SELECT tx_hash, MIN(unix_timestamp) AS min_timestamp FROM txs GROUP BY tx_hash) t WHERE min_timestamp >= $1 AND min_timestamp < $2 ORDER BY min_timestamp DESC",
@@ -60,7 +60,8 @@ app.post("/api/nodes/:node_id/info", async (req, res) => {
     );
     console.log(exists.rows[0].exists)
     if (!exists.rows[0].exists) {
-      const ip = req.socket.remoteAddress;
+      const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+      console.log(ip);
       const geo = geoip.lookup(ip);
       
       try {
