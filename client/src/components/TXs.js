@@ -25,9 +25,9 @@ const TXs = (props) => {
     return () => clearInterval(timer);
   }, []);
 
-  const ws = new WebSocket(wsURL);
-  // TODO: ws connection failed: insufficient resources
   const initWebsocket = () => {
+    const ws = new WebSocket(wsURL);
+
     ws.onopen = function () {
       console.log("CONNECTED");
       ws.send("get tx data");
@@ -47,15 +47,15 @@ const TXs = (props) => {
     };
     ws.onclose = function (evt) {
       console.log("DISCONNECTED");
-      initWebsocket();
+      // initWebsocket();
     };
   };
 
   useEffect(() => {
     initWebsocket();
-    return () => {
-      ws.close();
-    };
+    // return () => {
+    //   ws.close();
+    // };
   }, []);
 
   useEffect(() => {
