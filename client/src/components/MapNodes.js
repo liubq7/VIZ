@@ -6,12 +6,8 @@ const MapNodes = (props) => {
   const { nodesGeoData } = useContext(NodesContext);
   const nodesRef = useRef();
 
-  const scaleInfo = props.scaleInfo;
-  const projection = scaleInfo.projection;
-  const centerStyle = scaleInfo.centerStyle;
-
-  const txNum = props.txNum;
-  const txs = props.txs;
+  const { txNum, txs, scaleInfo } = props;
+  const { projection, centerStyle } = scaleInfo;
 
   let m = new Map();
   for (let i in txs) {
@@ -46,7 +42,7 @@ const MapNodes = (props) => {
       // .duration(200)
       .style("fill", "#18efb1")
       .style("opacity", function (d) {
-        return ((m.get(d.node_id) || 0) / txNum);
+        return (m.get(d.node_id) || 0) / txNum;
       });
   }, [props]);
 

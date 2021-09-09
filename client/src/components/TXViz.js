@@ -13,8 +13,8 @@ const TXViz = () => {
   const width = 670;
   const height = 380;
 
-  const { txVizHash, setTxVizHash } = useContext(TXVizContext);
-  const { txVizData, setTxVizData } = useContext(TXVizContext);
+  const { txVizHash, setTxVizHash, txVizData, setTxVizData } =
+    useContext(TXVizContext);
 
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);

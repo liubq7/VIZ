@@ -9,8 +9,7 @@ import "../css/WorldMap.css";
 const WorldMap = (props) => {
   const worldMap = useRef();
 
-  const centerStyle = props.centerStyle;
-  const projection = props.projection;
+  const { centerStyle, projection } = props;
 
   const path = geoPath().projection(projection).pointRadius(1);
   const mapData = topojson.feature(
@@ -56,4 +55,4 @@ const WorldMap = (props) => {
   );
 };
 
-export default WorldMap;
+export default React.memo(WorldMap);

@@ -9,7 +9,7 @@ const wsURL = process.env.NODE_ENV === "production" ? "ws://54.254.68.135/ws" : 
 const TXs = (props) => {
   const { setTxVizHash } = useContext(TXVizContext);
 
-  const setIsLoading = props.setIsLoading;
+  const { setIsLoading } = props;
 
   const [time, setTime] = useState(Date.now() - 5 * 60000);
   const [txHashStore, setTxHashStore] = useState([]);

@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import "./css/App.css";
 import TXs from "./components/TXs";
 import WorldMap from "./components/WorldMap";
 import TXViz from "./components/TXViz";
-import useWindowDimensions from "./hooks/useWindowDimensions";
+import useDimensions from "./hooks/useDimensions";
 import { geoMiller } from "d3-geo-projection";
 import SearchBox from "./components/SearchBox";
 import decorationTop from "./images/decorationTop.svg";
@@ -17,7 +17,8 @@ import { mapNodesGeoData } from "./helpers/processData";
 
 function App() {
   const { txVizHash } = useContext(TXVizContext);
-  const { nodesGeoData, setNodesGeoData, nodesGeoMap, setNodesGeoMap } = useContext(NodesContext);
+  const { nodesGeoData, setNodesGeoData, nodesGeoMap, setNodesGeoMap } =
+    useContext(NodesContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,28 +36,25 @@ function App() {
     fetchNodesGeoData();
   }, []);
 
-  const { innerWidth, innerHeight } = useWindowDimensions();
-  let width, height;
-  if (innerHeight > (innerWidth - 20) / 2.03) {
-    width = innerWidth - 20;
-    height = width / 2.03;
-  } else {
-    height = innerHeight;
-    width = height * 2.03;
-  }
-  const projection = geoMiller()
-    .scale((width / 630) * 100)
-    .rotate([-11, 0])
-    .translate([width / 2, height * 0.645]);
+  const { width, height } = useDimensions();
 
-  const centerStyle = {
-    height: height,
-    width: width,
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
-  };
+  const projection = useMemo(() => {
+    return geoMiller()
+      .scale((width / 630) * 100)
+      .rotate([-11, 0])
+      .translate([width / 2, height * 0.645]);
+  }, [width, height]);
+
+  const centerStyle = useMemo(() => {
+    return {
+      height,
+      width,
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+    };
+  }, [width, height]);
 
   return (
     <div style={centerStyle}>
@@ -79,13 +77,15 @@ function App() {
         </div>
       </div>
 
-      <div id="loader">
-        {isLoading ? <Loader /> : null}
-      </div>
+      <div id="loader">{isLoading ? <Loader /> : null}</div>
 
       <div id="txs">
         {nodesGeoData == null ? null : (
-          <TXs projection={projection} centerStyle={centerStyle} setIsLoading={setIsLoading} />
+          <TXs
+            projection={projection}
+            centerStyle={centerStyle}
+            setIsLoading={setIsLoading}
+          />
         )}
       </div>
 
