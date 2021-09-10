@@ -22,12 +22,12 @@ const TXs = (props) => {
     return () => clearInterval(timer);
   }, []);
 
-  const wsURL =
-    process.env.NODE_ENV === "production"
-      ? "ws://54.254.68.135/ws"
-      : "ws://localhost:8088/ws";
-
   const initWebsocket = () => {
+    const wsURL =
+      process.env.NODE_ENV === "production"
+        ? "ws://54.254.68.135/ws"
+        : "ws://localhost:8088/ws";
+
     const ws = new WebSocket(wsURL);
 
     ws.onopen = function () {

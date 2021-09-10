@@ -28,7 +28,8 @@ wss.on("connection", function connection(ws) {
 const sendTxData = async (ws, t) => {
   const t1 = t;
   const t2 = t1 + 30000;
-
+  console.log(t1, t2);
+  
   try {
     const txList = await db.query(
       "SELECT tx_hash, min_timestamp FROM (SELECT tx_hash, MIN(unix_timestamp) AS min_timestamp FROM txs GROUP BY tx_hash) t WHERE min_timestamp >= $1 AND min_timestamp < $2 ORDER BY min_timestamp DESC",
@@ -72,7 +73,7 @@ app.post("/api/nodes/:node_id/info", async (req, res) => {
     console.log(error);
   }
 
-  console.log(req.body);
+  // console.log(req.body);
   const txs = JSON.stringify(req.body);
   try {
     await db.query(
