@@ -34,12 +34,12 @@ const TXNodes = (props) => {
       initNodes(width / 2, height / 2, txVizData, txVizHash, nodesGeoMap)
     );
     setLinks(generateLinks(txVizData, txVizHash));
-  }, [txVizHash, txVizData, nodesGeoMap]);
+  }, [txVizData]);
 
   useEffect(() => {
     setNodeData(filterNodeData(time, txVizData));
     setLinkData(filterLinkData(time, links));
-  }, [time]);
+  }, [time, txVizData]);
 
   useEffect(() => {
     if (nodes) {

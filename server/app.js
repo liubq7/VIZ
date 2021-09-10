@@ -6,7 +6,7 @@ const express = require("express");
 const db = require("./db");
 const cors = require("cors");
 const WebSocket = require("ws");
-const geoip = require('geoip-lite');
+const geoip = require("geoip-lite");
 
 const app = express();
 
@@ -17,25 +17,18 @@ const WebSocketServer = WebSocket.Server;
 const wss = new WebSocketServer({ port: 8088 });
 
 wss.on("connection", function connection(ws) {
-  // TODO: send message as soon as connect
-  ws.on("message", function incoming(message) {
-    console.log("received: %s", message);
-
-    if (message === "get tx data") {
-      let t = Date.now() - 5 * 60000;
-      sendTxData(ws, t);
-      setInterval(function () {
-        t += 30000;
-        sendTxData(ws, t);
-      }, 30000);
-    }
-  });
+  let t = Date.now() - 5 * 60000;
+  sendTxData(ws, t);
+  setInterval(function () {
+    t += 30000;
+    sendTxData(ws, t);
+  }, 30000);
 });
 
 const sendTxData = async (ws, t) => {
   const t1 = t;
   const t2 = t1 + 30000;
-  // console.log(t1, t2)
+
   try {
     const txList = await db.query(
       "SELECT tx_hash, min_timestamp FROM (SELECT tx_hash, MIN(unix_timestamp) AS min_timestamp FROM txs GROUP BY tx_hash) t WHERE min_timestamp >= $1 AND min_timestamp < $2 ORDER BY min_timestamp DESC",
@@ -52,18 +45,20 @@ const sendTxData = async (ws, t) => {
 };
 
 app.post("/api/nodes/:node_id/info", async (req, res) => {
-  const {node_id} = req.params;
+  const { node_id } = req.params;
   try {
     const exists = await db.query(
       "SELECT EXISTS (SELECT * FROM nodes WHERE node_id = $1)",
       [node_id]
     );
-    console.log(exists.rows[0].exists)
+    console.log(exists.rows[0].exists);
     if (!exists.rows[0].exists) {
-      const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress).split(',')[0].trim();
+      const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress)
+        .split(",")[0]
+        .trim();
       console.log(ip);
       const geo = geoip.lookup(ip);
-      
+
       try {
         await db.query(
           "INSERT INTO nodes (node_id, longitude, latitude) VALUES ($1, $2, $3)",
@@ -72,12 +67,12 @@ app.post("/api/nodes/:node_id/info", async (req, res) => {
       } catch (error) {
         console.log(error);
       }
-    } 
+    }
   } catch (error) {
     console.log(error);
   }
 
-  console.log(req.body)
+  console.log(req.body);
   const txs = JSON.stringify(req.body);
   try {
     await db.query(
@@ -88,7 +83,7 @@ app.post("/api/nodes/:node_id/info", async (req, res) => {
     console.log(error);
   }
 
-  res.json("ok")
+  res.json("ok");
 });
 
 // get all nodes' recieved time about a tx requested by tx hash

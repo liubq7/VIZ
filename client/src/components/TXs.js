@@ -4,11 +4,8 @@ import "../css/TXs.css";
 import { TXVizContext } from "../context/TXVizContext";
 import { formatTimestamp } from "../helpers/processData";
 
-const wsURL = process.env.NODE_ENV === "production" ? "ws://54.254.68.135/ws" : "ws://localhost:8088/ws";
-
 const TXs = (props) => {
   const { setTxVizHash } = useContext(TXVizContext);
-
   const { setIsLoading } = props;
 
   const [time, setTime] = useState(Date.now() - 5 * 60000);
@@ -25,12 +22,16 @@ const TXs = (props) => {
     return () => clearInterval(timer);
   }, []);
 
+  const wsURL =
+    process.env.NODE_ENV === "production"
+      ? "ws://54.254.68.135/ws"
+      : "ws://localhost:8088/ws";
+
   const initWebsocket = () => {
     const ws = new WebSocket(wsURL);
 
     ws.onopen = function () {
       console.log("CONNECTED");
-      ws.send("get tx data");
     };
     ws.onmessage = function (evt) {
       const newTxList = JSON.parse(evt.data)[0];
@@ -40,7 +41,7 @@ const TXs = (props) => {
       });
       setTxStore((txStore) => {
         return [...newTxs, ...txStore];
-      })
+      });
     };
     ws.onerror = function (evt) {
       console.log("ERROR:" + evt);
@@ -63,7 +64,10 @@ const TXs = (props) => {
   }, [time]);
 
   function updateList() {
-    while (txHashStore.length > 0 && txHashStore.slice(-1)[0].min_timestamp < time) {
+    while (
+      txHashStore.length > 0 &&
+      txHashStore.slice(-1)[0].min_timestamp < time
+    ) {
       const tx = txHashStore.pop();
       const txHash = tx.tx_hash;
       const formattedTime = formatTimestamp(tx.min_timestamp);
@@ -84,7 +88,7 @@ const TXs = (props) => {
 
       setTxHash((txHash) => {
         const temp = [tx, ...txHash];
-        return temp.filter((tx) => time - tx.min_timestamp < 5000);
+        return temp.filter((tx) => time - tx.min_timestamp < 2000);
       });
     }
 
@@ -92,21 +96,23 @@ const TXs = (props) => {
       const tx = txStore.pop();
       setTxs((txs) => {
         const temp = [tx, ...txs];
-        return temp.filter((tx) => time - tx.unix_timestamp < 5000);
+        return temp.filter((tx) => time - tx.unix_timestamp < 2000);
       });
     }
   }
 
   useEffect(() => {
-    if (txHash.length > 0) {
+    if (listItems.length > 0) {
       setIsLoading(false);
     }
-  }, [txHash.length])
+  }, [listItems.length]);
 
   return (
     <div style={props.centerStyle}>
       <div>
-        {txs.length === 0 ? null : <MapNodes txNum={txHash.length} txs={txs} scaleInfo={props} />}
+        {txs.length === 0 ? null : (
+          <MapNodes txNum={txHash.length} txs={txs} scaleInfo={props} />
+        )}
       </div>
       <div id="tx-list">
         <ul>{listItems}</ul>
