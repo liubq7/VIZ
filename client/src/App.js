@@ -16,7 +16,7 @@ import Loader from "./components/Loader";
 import { mapNodesGeoData } from "./helpers/processData";
 
 function App() {
-  const { txVizHash } = useContext(TXVizContext);
+  const { txVizHash, setTxVizHash } = useContext(TXVizContext);
   const { nodesGeoData, setNodesGeoData, nodesGeoMap, setNodesGeoMap } =
     useContext(NodesContext);
 
@@ -120,7 +120,7 @@ function App() {
       </div>
 
       <div id="search-box">
-        <SearchBox />
+        <SearchBox setTxVizHash={setTxVizHash} />
       </div>
     </div>
   );

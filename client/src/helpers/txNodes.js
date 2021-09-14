@@ -80,9 +80,9 @@ export const initNodes = (
   return nodes;
 };
 
-export const drawViz = (svg, nodes, nodesData, linksData) => {
+export const drawViz = (svg, nodes, nodeData, linkData) => {
   for (let i in nodes) {
-    nodes[i].received = nodes[i].index < nodesData;
+    nodes[i].received = nodes[i].index < nodeData;
   }
 
   const p = svg.selectAll(".point").data(nodes);
@@ -105,7 +105,7 @@ export const drawViz = (svg, nodes, nodesData, linksData) => {
     });
   p.exit().remove();
 
-  const l = svg.selectAll(".link").data(linksData);
+  const l = svg.selectAll(".link").data(linkData);
   l.enter()
     .append("line")
     .attr("class", "link")

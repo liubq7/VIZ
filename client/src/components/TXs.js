@@ -22,7 +22,7 @@ const TXs = (props) => {
     return () => clearInterval(timer);
   }, []);
 
-  const initWebsocket = () => {
+  useEffect(() => {
     const wsURL =
       process.env.NODE_ENV === "production"
         ? "ws://54.254.68.135/ws"
@@ -48,15 +48,11 @@ const TXs = (props) => {
     };
     ws.onclose = function (evt) {
       console.log("DISCONNECTED");
-      // initWebsocket();
     };
-  };
 
-  useEffect(() => {
-    initWebsocket();
-    // return () => {
-    //   ws.close();
-    // };
+    return () => {
+      ws.close();
+    };
   }, []);
 
   useEffect(() => {
